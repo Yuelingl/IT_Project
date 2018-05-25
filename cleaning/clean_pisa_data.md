@@ -4,14 +4,13 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
+    toc: yes
 ---
 
 
 
 
-### Cleaning the Data
-
-#### Load Librarys
+### Load Librarys
 
 -- Load Library for reading CSV Files.
 
@@ -21,7 +20,7 @@ library(csvread)
 ```
 
 
-#### Read PISA - CSV File
+### Read PISA - CSV File
 
 -- Read CSV File "pisa_data.csv"
 -- Gets PISA Data for cleaning
