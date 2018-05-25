@@ -1,0 +1,34 @@
+---
+title: "Clean PISA Data"
+output:
+  html_document:
+    df_print: paged
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Cleaning the Data
+
+#### Load Librarys
+
+-- Load Library for reading CSV Files.
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+```
+
+
+#### Read PISA - CSV File
+
+-- Read CSV File "pisa_data.csv"
+-- Gets PISA Data for cleaning
+
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_dirty <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE)
+head(pisadata_dirty)
+```
