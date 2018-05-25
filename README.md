@@ -6,3 +6,6 @@ https://www.rstudio.com/wp-content/uploads/2015/06/rmarkdown-german.pdf
 
 ### Manipulating Data in R
 https://therostrumblog.wordpress.com/2014/01/29/basic-data-frame-manipulations-in-r/#1
+
+### Interpreting Linear Regression
+http://statmath.wu-wien.ac.at/staff/dekic/LERC2/LERCgross/ZWEI%20METRISCHE%20MERKMALE/LinkedDocuments/tuthn5-04-v.pdf
