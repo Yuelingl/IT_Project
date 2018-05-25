@@ -7,6 +7,13 @@ output:
     toc: yes
 ---
 
+### Goal
+
+The Goal of this File is to clean the Data of the PISA (Programm for International Student Assessment) study in order  
+to use it for comparing with the World Happiness Record and the GISAH Study.
+  
+  
+The cleaned Data should contain only the values for the year 2015 and only rows where all colums have values.
 
 
 
