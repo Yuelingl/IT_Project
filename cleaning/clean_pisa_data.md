@@ -48,7 +48,7 @@ pisadata_dirty
 
 ## Clean Data
 
-### Delete unneeded columns
+### Delete unneccessary columns
 
 -- Rename colums  
 -- Delete not needed colums  

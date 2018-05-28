@@ -164,5 +164,5 @@ pisa_science_female <- NULL
 -- Write the clean PISA-Data to a CSV-File
 
 ```{r eval=TRUE, echo=TRUE}
-write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="")
+write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="", col.names = TRUE)
 ```
