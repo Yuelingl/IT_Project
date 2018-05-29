@@ -1,0 +1,138 @@
+---
+title: "clean_alcohol_data"
+output: 
+  html_document:
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+
+###Introduction
+
+tba
+
+##Goal
+
+tba
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load Libraries
+
+-- Load Library for reading CSV Files.
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+```
+
+### Read raw data
+
+```{r eval=TRUE, echo=TRUE}
+alcoholdata_raw <- read.csv(file ="../IT_Project/data/raw_data/alcohol_consumption.csv", header = TRUE)
+alcoholdata_raw
+
+
+```
+Characterisics of raw data
+
+```{r eval=TRUE, echo=True}
+#number of columns:
+ncol(alcoholdata_raw)
+#number of rows:
+nrow(alcoholdata_raw)
+
+```
+
+###Clean raw data
+-- Renaming columns
+-- Omit superfluous columns: X1: "Datasource", Years 2016 & 2010-2014
+
+```{r eval=TRUE, echo=TRUE}
+names(alcoholdata_raw)
+names(alcoholdata_raw)[1]<- "Country"
+names(alcoholdata_raw)[2]<- "data_source"
+names(alcoholdata_raw)[3]<- "Beverage_Types"
+names(alcoholdata_raw)[4]<- "Alcohol_per_capita_2016"
+names(alcoholdata_raw)[5]<- "Alcohol_per_capita_2015"
+names(alcoholdata_raw)[6]<- "Alcohol_per_capita_2014"
+names(alcoholdata_raw)[7]<- "Alcohol_per_capita_2013"
+names(alcoholdata_raw)[8]<- "Alcohol_per_capita_2012"
+names(alcoholdata_raw)[9]<- "Alcohol_per_capita_2011"
+names(alcoholdata_raw)[10]<- "Alcohol_per_capita_2010"
+
+drops<- c("data_source","Alcohol_per_capita_2016","Alcohol_per_capita_2014","Alcohol_per_capita_2013","Alcohol_per_capita_2012","Alcohol_per_capita_2011","Alcohol_per_capita_2010")
+alcoholdata_2015_only <- alcoholdata_raw[, !names(alcoholdata_raw) %in% drops]
+alcoholdata_2015_only 
+
+```
+
+-- Reordering of row/columns: One row for one country, Beverage Types as single columns
+```{r eval=TRUE, echo=TRUE}
+#delete first row
+alcoholdata_2015_only<- alcoholdata_2015_only[-c(1), ]
+alcoholdata_2015_only
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+all_types<-alcoholdata_2015_only[2][1,1]
+beverage_all <- subset (alcoholdata_2015_only, Beverage_Types== all_types)
+beverage_all$Beverage_Types<-NULL
+names(beverage_all)[2]<- "All.types"
+beverage_all
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+beer<-alcoholdata_2015_only[2][2,1]
+beverage_beer <- subset (alcoholdata_2015_only, Beverage_Types== beer)
+beverage_beer$Beverage_Types<-NULL
+names(beverage_beer)[2]<- "Beer"
+beverage_beer
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+wine<-alcoholdata_2015_only[2][3,1]
+beverage_wine <- subset (alcoholdata_2015_only, Beverage_Types== wine)
+beverage_wine$Beverage_Types<-NULL
+names(beverage_wine)[2]<- "Wine"
+beverage_wine
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+spirits<-alcoholdata_2015_only[2][4,1]
+beverage_spirits <- subset (alcoholdata_2015_only, Beverage_Types== spirits)
+beverage_spirits$Beverage_Types<-NULL
+names(beverage_spirits)[2]<- "Spirits"
+beverage_spirits
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+other<-alcoholdata_2015_only[2][5,1]
+beverage_other <- subset (alcoholdata_2015_only, Beverage_Types== other)
+beverage_other$Beverage_Types<-NULL
+names(beverage_other)[2]<- "other"
+beverage_other
+
+```
+
+--Joining Subsets
+```{r eval=TRUE, echo=TRUE}
+list_df<-list(beverage_all,beverage_beer,beverage_wine, beverage_spirits,beverage_other)
+alcoholdata_clean <- Reduce(function(x,y) {merge(x,y, all=TRUE)}, list_df)
+alcoholdata_clean
+
+```
+Clearing out NAs
+```{r eval=TRUE, echo=TRUE}
+nrow(alcoholdata_clean)
+alcoholdata_clean<-subset()
+nrow(alcoholdata_clean)
+
+```
+
