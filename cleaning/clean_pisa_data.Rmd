@@ -7,12 +7,14 @@ output:
     toc: yes
 ---
 
+## Introduction
+
 ### Goal
 
 The Goal of this File is to clean the Data of the PISA (Programm for International Student Assessment) study in order  
 to use it for comparing with the World Happiness Record and the GISAH Study.
   
-The cleaned Data should contain only the values for the year 2015 and only rows where all colums have values.
+The cleaned Data should contain the Scores for the different PISA Scales for the year 2015 in different columns.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,11 +31,138 @@ library(csvread)
 
 ### Read PISA - CSV File
 
--- Read CSV File "pisa_data.csv"
+-- Read CSV File "pisa_data.csv"  
 -- Gets PISA Data for cleaning
 
 
 ```{r eval=TRUE, echo=TRUE}
 pisadata_dirty <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE)
-head(pisadata_dirty)
+pisadata_dirty
+```
+
+## Clean Data
+
+### Delete unneccessary columns
+
+-- Rename colums  
+-- Delete not needed colums  
+  -- Columns with scores for the years 2013 and 2015 are not needed  
+
+```{r eval=TRUE, echo=TRUE}
+names(pisadata_dirty)
+names(pisadata_dirty)[1] <- "Country"
+names(pisadata_dirty)[5] <- "Score.2013"
+names(pisadata_dirty)[6] <- "Score.2014"
+names(pisadata_dirty)[7] <- "Score.2015"
+names(pisadata_dirty)
+
+drops <- c("Country.Code","Series.Name", "Score.2013", "Score.2014")
+pisadata_dirty <- pisadata_dirty[ , !(names(pisadata_dirty) %in% drops)]
+pisadata_dirty
+```
+
+### Apart the different PISA-Categorys
+
+-- Apart the Mean Performance of the different Scales and load it into different dataframes  
+-- Delete the unneeded "Series.Code"-column  
+-- Rename the "Score.2015"-column to the name of the Scale  
+-- Free memory by deleting the old pisadata_dirty frame
+
+```{r eval=TRUE, echo=TRUE}
+pisa_maths_main <- subset(pisadata_dirty, Series.Code == "LO.PISA.MAT")
+pisa_maths_main$Series.Code <- NULL
+names(pisa_maths_main)[2] <- "PISA: Mean Performance on Mathmatics Scale"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_maths_male <- subset(pisadata_dirty, Series.Code == "LO.PISA.MAT.MA")
+pisa_maths_male$Series.Code <- NULL
+names(pisa_maths_male)[2] <- "PISA: Mean Performance on Mathmatics Scale (Male)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_maths_female <- subset(pisadata_dirty, Series.Code == "LO.PISA.MAT.FE")
+pisa_maths_female$Series.Code <- NULL
+names(pisa_maths_female)[2] <- "PISA: Mean Performance on Mathmatics Scale (Female)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_reading_main <- subset(pisadata_dirty, Series.Code == "LO.PISA.REA")
+pisa_reading_main$Series.Code <- NULL
+names(pisa_reading_main)[2] <- "PISA: Mean Performance on Reading Scale"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_reading_male <- subset(pisadata_dirty, Series.Code == "LO.PISA.REA.MA")
+pisa_reading_male$Series.Code <- NULL
+names(pisa_reading_male)[2] <- "PISA: Mean Performance on Reading Scale (Male)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_reading_female <- subset(pisadata_dirty, Series.Code == "LO.PISA.REA.FE")
+pisa_reading_female$Series.Code <- NULL
+names(pisa_reading_female)[2] <- "PISA: Mean Performance on Reading Scale (Female)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_science_main <- subset(pisadata_dirty, Series.Code == "LO.PISA.SCI")
+pisa_science_main$Series.Code <- NULL
+names(pisa_science_main)[2] <- "PISA: Mean Performance on Science Scale"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_science_male <- subset(pisadata_dirty, Series.Code == "LO.PISA.SCI.MA")
+pisa_science_male$Series.Code <- NULL
+names(pisa_science_male)[2] <- "PISA: Mean Performance on Science Scale (Male)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_science_female <- subset(pisadata_dirty, Series.Code == "LO.PISA.SCI.FE")
+pisa_science_female$Series.Code <- NULL
+names(pisa_science_female)[2] <- "PISA: Mean Performance on Science Scale (Female)"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_dirty <- NULL
+```
+
+### Join Dataframes and clean data
+
+-- Make a list of all Scale-Dataframes
+-- Merge (Full Outer Join) the different Scale-Dataframes, contained within the list, to get a Dataset of the PISA study 2015  
+-- Delete all rows with countries that have not participated in the PISA study
+-- Free memory by deleting the old Scale-Dataframes
+
+```{r eval=TRUE, echo=TRUE}
+list_df <- list(pisa_maths_main, pisa_maths_male, pisa_maths_female, pisa_reading_main, pisa_reading_male, pisa_reading_female, pisa_science_main, pisa_science_male, pisa_science_female)
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_clean <- Reduce(function(x,y) {merge(x,y, all=TRUE)}, list_df)
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_clean <- subset(pisadata_clean, pisadata_clean[2] != ".." | pisadata_clean[3] != ".." | pisadata_clean[4] != ".." | pisadata_clean[5] != ".." | pisadata_clean[6] != ".." | pisadata_clean[7] != ".." | pisadata_clean[8] != ".." | pisadata_clean[9] != ".." | pisadata_clean[10] != "..")
+
+pisadata_clean
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisa_maths_main <- NULL
+pisa_maths_male <- NULL
+pisa_maths_female <- NULL
+pisa_reading_main <- NULL
+pisa_reading_male <- NULL
+pisa_reading_female <- NULL
+pisa_science_main <- NULL
+pisa_science_male <- NULL
+pisa_science_female <- NULL
+```
+
+### Save Data in CSV-File
+
+-- Write the clean PISA-Data to a CSV-File
+
+```{r eval=TRUE, echo=TRUE}
+write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="", col.names = TRUE)
 ```
