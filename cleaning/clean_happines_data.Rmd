@@ -37,7 +37,7 @@ happiness_raw
 
 ## Clean Data
 
--- Delete Row, as it will be incorrect, when later deleting countries
+-- Delete Column, as it will be incorrect, when later deleting countries
 
 ```{r eval=TRUE, echo=TRUE}
 happiness_raw[3] <- NULL
