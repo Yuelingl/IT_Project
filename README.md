@@ -9,3 +9,8 @@ https://therostrumblog.wordpress.com/2014/01/29/basic-data-frame-manipulations-i
 
 ### Interpreting Linear Regression
 http://statmath.wu-wien.ac.at/staff/dekic/LERC2/LERCgross/ZWEI%20METRISCHE%20MERKMALE/LinkedDocuments/tuthn5-04-v.pdf
+
+https://wikis.fu-berlin.de/display/fustat/Output+einer+linearen+Regression+in+R
+
+###Data Wrangling with dyplr & tidyr
+https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
