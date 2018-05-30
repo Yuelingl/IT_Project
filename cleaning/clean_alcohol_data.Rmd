@@ -30,19 +30,21 @@ library(csvread)
 ### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
-alcoholdata_raw <- read.csv(file ="../IT_Project/data/raw_data/alcohol_consumption.csv", header = TRUE)
+alcoholdata_raw <- read.csv(file ="../data/raw_data/alcohol_consumption.csv", header = TRUE)
 alcoholdata_raw
 
 
 ```
-Characterisics of raw data
+Characterisics of raw data  
+number of columns:  
 
-```{r eval=TRUE, echo=True}
-#number of columns:
+```{r eval=TRUE, echo=TRUE}
 ncol(alcoholdata_raw)
-#number of rows:
-nrow(alcoholdata_raw)
+```
+number of rows:  
 
+```{r eval=TRUE, echo=TRUE}
+nrow(alcoholdata_raw)
 ```
 
 ###Clean raw data
@@ -139,6 +141,6 @@ nrow(alcoholdata_clean)
 --Write into CSV
 
 ```{r eval=TRUE, echo=TRUE}
-write.csv(alcoholdata_clean, file = "../IT_Project/data/clean_data/alcohol_data.csv",row.names=FALSE, na="", col.names = TRUE)
+write.csv(alcoholdata_clean, file = "../data/clean_data/alcohol_data.csv",row.names=FALSE, na="", col.names = TRUE)
 
 ```
