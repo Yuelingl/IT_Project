@@ -72,6 +72,7 @@ pisadata_dirty
 pisa_maths_main <- subset(pisadata_dirty, Series.Code == "LO.PISA.MAT")
 pisa_maths_main$Series.Code <- NULL
 names(pisa_maths_main)[2] <- "PISA: Mean Performance on Mathmatics Scale"
+pisa_maths_main
 ```
 
 ```{r eval=TRUE, echo=TRUE}

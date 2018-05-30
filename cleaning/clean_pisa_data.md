@@ -217,5 +217,10 @@ pisa_science_female <- NULL
 
 
 ```r
-write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="")
+write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="", col.names = TRUE)
+```
+
+```
+## Warning in write.csv(pisadata_clean, file = "../data/clean_data/
+## pisa_data.csv", : attempt to set 'col.names' ignored
 ```
