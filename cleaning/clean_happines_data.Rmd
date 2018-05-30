@@ -1,0 +1,68 @@
+---
+title: "Clean Happiness Data"
+output:
+  html_document:
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+
+## Introduction
+
+### Goal
+
+The Goal of this File is to clean the Data of the World Happiness Report 2015 in order to use it for comparing with the PISA Study and the GISAH Study of 2015
+  
+The cleaned Data should contain the Happiness Score, Standard Error and the extend to which the different factors (Family, Health, ...) influenced the Happiness Score of the certain countries.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Load Librarys
+
+-- Load Library for reading CSV Files.
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+```
+
+### Read raw data
+
+-- Read CSV File "world_happiness_report_2015.csv"  
+
+```{r eval=TRUE, echo=TRUE}
+happiness_raw <- read.csv(file = "../data/raw_data/world_happiness_report_2015.csv", header = TRUE)
+happiness_raw
+```
+
+## Clean Data
+
+-- Delete Row, as it will be incorrect, when later deleting countries
+
+```{r eval=TRUE, echo=TRUE}
+happiness_raw[3] <- NULL
+```
+
+-- Renaming columns
+
+```{r eval=TRUE, echo=TRUE}
+names(happiness_raw)[3]<- "Happiness_Score"
+names(happiness_raw)[4]<- "Standard_Error"
+names(happiness_raw)[5]<- "Economy__GDP_per_Capita"
+names(happiness_raw)[6]<- "Family"
+names(happiness_raw)[7]<- "Health__Life_Expectancy"
+names(happiness_raw)[8]<- "Freedom"
+names(happiness_raw)[9]<- "Trust__Government_Corruption"
+names(happiness_raw)[10]<- "Generosity"
+names(happiness_raw)[11]<- "Dystopia_Residual"
+
+happiness_clean <- happiness_raw
+happiness_clean
+```
+
+-- Write into CSV
+
+```{r eval=TRUE, echo=TRUE}
+write.csv(happiness_clean, file = "../data/clean_data/happiness_data.csv",row.names=FALSE, na="", col.names = TRUE)
+
+```
