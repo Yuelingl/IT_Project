@@ -128,11 +128,17 @@ alcoholdata_clean <- Reduce(function(x,y) {merge(x,y, all=TRUE)}, list_df)
 alcoholdata_clean
 
 ```
-Clearing out NAs
+--Clearing out NAs
 ```{r eval=TRUE, echo=TRUE}
 nrow(alcoholdata_clean)
-alcoholdata_clean<-subset()
+alcoholdata_clean <- na.omit(alcoholdata_clean)
+alcoholdata_clean
 nrow(alcoholdata_clean)
 
 ```
+--Write into CSV
 
+```{r eval=TRUE, echo=TRUE}
+write.csv(alcoholdata_clean, file = "../IT_Project/data/clean_data/alcohol_data.csv",row.names=FALSE, na="", col.names = TRUE)
+
+```
