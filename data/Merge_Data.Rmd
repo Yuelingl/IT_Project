@@ -1,0 +1,91 @@
+---
+title: "Merge Data"
+output:
+  html_document:
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup
+
+### Load Librarys
+
+-- Load Library for reading CSV Files.
+-- Load tidyr-library
+-- Load dplyr-library
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+library(tidyr)
+library(dplyr)
+```
+
+
+### Read cleaned CSV Files
+
+-- Read CSV File "pisa_data.csv"  
+-- Read CSV File "alcohol_data.csv"  
+-- Read CSV File "happiness_data.csv"  
+
+```{r eval=TRUE, echo=TRUE}
+dfPisa <- read.csv("clean_data/pisa_data.csv")
+dfAlcohol <- read.csv("clean_data/alcohol_data.csv")
+dfHappiness <- read.csv("clean_data/happiness_data.csv")
+
+dfPisa
+dfAlcohol
+dfHappiness
+```
+
+## Merge and Arrange Data
+
+### Merge Data
+
+-- Load own R-Functions for Multi-Merge  
+-- Merge the three Data Sets
+
+```{r eval=TRUE, echo=TRUE}
+source("../r/functions.R")
+lsData <- list(dfHappiness, dfPisa, dfAlcohol)
+dfData <- multiMerge(lsDF = lsData, bFullJoin = FALSE)
+dfData
+```
+
+### Arrange Data
+
+-- Load own R-Functions for Multi-Merge  
+-- Merge the three Data Sets
+
+```{r eval=TRUE, echo=TRUE}
+drops <- c(
+  "Happiness.Score.Standard.Error",
+  "Freedom",
+  "Family",
+  "Trust.Government.Corruption",
+  "Generosity",
+  "Dystopia.Residual",
+  "Other",
+  "Spirits",
+  "Wine",
+  "Beer"
+)
+masterData <- dfData[ , !(names(dfData) %in% drops)]
+masterData
+```
+
+### Save CSV-Files
+
+-- Save CSV-Files
+
+```{r eval=TRUE, echo=TRUE}
+write.csv(dfData, file = "master_data/master_data.csv",row.names=FALSE, na="", col.names = TRUE)
+write.csv(masterData, file = "master_data/master_data.min.csv",row.names=FALSE, na="", col.names = TRUE)
+```
+
+
