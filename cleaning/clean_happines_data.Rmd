@@ -46,15 +46,26 @@ happiness_raw[3] <- NULL
 -- Renaming columns
 
 ```{r eval=TRUE, echo=TRUE}
-names(happiness_raw)[3]<- "Happiness_Score"
-names(happiness_raw)[4]<- "Standard_Error"
-names(happiness_raw)[5]<- "Economy__GDP_per_Capita"
+names(happiness_raw)[3]<- "Happiness.Score"
+names(happiness_raw)[4]<- "Happiness.Score.Standard.Error"
+names(happiness_raw)[5]<- "Economy.GDP.per.Capita"
 names(happiness_raw)[6]<- "Family"
-names(happiness_raw)[7]<- "Health__Life_Expectancy"
+names(happiness_raw)[7]<- "Health.Life.Expectancy"
 names(happiness_raw)[8]<- "Freedom"
-names(happiness_raw)[9]<- "Trust__Government_Corruption"
+names(happiness_raw)[9]<- "Trust.Government.Corruption"
 names(happiness_raw)[10]<- "Generosity"
-names(happiness_raw)[11]<- "Dystopia_Residual"
+names(happiness_raw)[11]<- "Dystopia.Residual"
+```
+
+-- rename Countries  
+
+```{r eval=TRUE, echo=TRUE}
+
+ind <- which(levels(happiness_raw$Country)=="South Korea", arr.in=TRUE)
+levels(happiness_raw$Country)[ind] <- "Republic of Korea"
+
+ind <- which(levels(happiness_raw$Country)=="Russia", arr.in=TRUE)
+levels(happiness_raw$Country)[ind] <- "Russian Federation"
 
 happiness_clean <- happiness_raw
 happiness_clean

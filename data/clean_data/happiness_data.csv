@@ -1,4 +1,4 @@
-"Country","Region","Happiness_Score","Standard_Error","Economy__GDP_per_Capita","Family","Health__Life_Expectancy","Freedom","Trust__Government_Corruption","Generosity","Dystopia_Residual"
+"Country","Region","Happiness.Score","Happiness.Score.Standard.Error","Economy.GDP.per.Capita","Family","Health.Life.Expectancy","Freedom","Trust.Government.Corruption","Generosity","Dystopia.Residual"
 "Switzerland","Western Europe",7.587,0.03411,1.39651,1.34951,0.94143,0.66557,0.41978,0.29678,2.51738
 "Iceland","Western Europe",7.561,0.04884,1.30232,1.40223,0.94784,0.62877,0.14145,0.4363,2.70201
 "Denmark","Western Europe",7.527,0.03328,1.32548,1.36058,0.87464,0.64938,0.48357,0.34139,2.49204
@@ -45,7 +45,7 @@
 "Uzbekistan","Central and Eastern Europe",6.003,0.04361,0.63244,1.34043,0.59772,0.65821,0.30826,0.22837,2.23741
 "Slovakia","Central and Eastern Europe",5.995,0.04267,1.16891,1.26999,0.78902,0.31751,0.03431,0.16893,2.24639
 "Japan","Eastern Asia",5.987,0.03581,1.27074,1.25712,0.99111,0.49615,0.1806,0.10705,1.68435
-"South Korea","Eastern Asia",5.984,0.04098,1.24461,0.95774,0.96538,0.33208,0.07857,0.18557,2.21978
+"Republic of Korea","Eastern Asia",5.984,0.04098,1.24461,0.95774,0.96538,0.33208,0.07857,0.18557,2.21978
 "Ecuador","Latin America and Caribbean",5.975,0.04528,0.86402,0.99903,0.79075,0.48574,0.1809,0.11541,2.53942
 "Bahrain","Middle East and Northern Africa",5.96,0.05412,1.32376,1.21624,0.74716,0.45492,0.306,0.17362,1.73797
 "Italy","Western Europe",5.948,0.03914,1.25114,1.19777,0.95446,0.26236,0.02901,0.22823,2.02518
@@ -62,7 +62,7 @@
 "Malaysia","Southeastern Asia",5.77,0.0433,1.12486,1.07023,0.72394,0.53024,0.10501,0.33075,1.88541
 "Croatia","Central and Eastern Europe",5.759,0.04394,1.08254,0.79624,0.78805,0.25883,0.0243,0.05444,2.75414
 "Libya","Middle East and Northern Africa",5.754,0.07832,1.13145,1.11862,0.7038,0.41668,0.11023,0.18295,2.09066
-"Russia","Central and Eastern Europe",5.716,0.03135,1.13764,1.23617,0.66926,0.36679,0.03005,0.00199,2.27394
+"Russian Federation","Central and Eastern Europe",5.716,0.03135,1.13764,1.23617,0.66926,0.36679,0.03005,0.00199,2.27394
 "Jamaica","Latin America and Caribbean",5.709,0.13693,0.81038,1.15102,0.68741,0.50442,0.02299,0.2123,2.32038
 "North Cyprus","Western Europe",5.695,0.05635,1.20806,1.07008,0.92356,0.49027,0.1428,0.26169,1.59888
 "Cyprus","Western Europe",5.689,0.0558,1.20813,0.89318,0.92356,0.40672,0.06146,0.30638,1.88931

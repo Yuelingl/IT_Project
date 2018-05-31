@@ -88,11 +88,41 @@ pisadata_dirty <- NULL
 
 ###Clean data
 
--- Delete all rows with countries that have not participated in the PISA study
--- Free memory by deleting the old Scale-Dataframes
+-- Delete Male and Female Scales as they are not needed when comparing Data Sets for Aclohol Consuption, Happiness Record and PISA Study  
+-- Rename Scale Columns  
+-- Delete all rows with countries that have not participated in the PISA study  
+-- Rename some Countries in order to join the Data Sets later  
 
 ```{r eval=TRUE, echo=TRUE}
-pisadata_clean <- subset(pisadata_clean, pisadata_clean[2] != ".." | pisadata_clean[3] != ".." | pisadata_clean[4] != ".." | pisadata_clean[5] != ".." | pisadata_clean[6] != ".." | pisadata_clean[7] != ".." | pisadata_clean[8] != ".." | pisadata_clean[9] != ".." | pisadata_clean[10] != "..")
+drops <- c(
+  "PISA: Mean performance on the mathematics scale. Female",
+  "PISA: Mean performance on the mathematics scale. Male", 
+  "PISA: Mean performance on the reading scale. Female", 
+  "PISA: Mean performance on the reading scale. Male", 
+  "PISA: Mean performance on the science scale. Female", 
+  "PISA: Mean performance on the science scale. Male")
+pisadata_clean <- pisadata_clean[ , !(names(pisadata_clean) %in% drops)]
+```
+
+```{r eval=TRUE, echo=TRUE}
+names(pisadata_clean)[2] <- "PISA.Performance.Mean.Mathematics"
+names(pisadata_clean)[3] <- "PISA.Performance.Mean.Reading"
+names(pisadata_clean)[4] <- "PISA.Performance.Mean.Science"
+```
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_clean <- subset(pisadata_clean, pisadata_clean[1] != ".." & pisadata_clean[2] != ".." & pisadata_clean[3] != ".." & pisadata_clean[4] != "..")
+```
+
+```{r eval=TRUE, echo=TRUE}
+ind <- which(levels(pisadata_clean$Country)=="Korea, Rep.", arr.in=TRUE)
+levels(pisadata_clean$Country)[ind] <- "Republic of Korea"
+
+ind <- which(levels(pisadata_clean$Country)=="Macedonia, FYR", arr.in=TRUE)
+levels(pisadata_clean$Country)[ind] <- "Macedonia"
+
+ind <- which(levels(pisadata_clean$Country)=="Slovak Republic", arr.in=TRUE)
+levels(pisadata_clean$Country)[ind] <- "Slovakia"
 
 pisadata_clean
 ```
