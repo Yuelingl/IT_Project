@@ -130,12 +130,44 @@ alcoholdata_clean <- Reduce(function(x,y) {merge(x,y, all=TRUE)}, list_df)
 alcoholdata_clean
 
 ```
+--Renaming Columns
+
+```{r eval=TRUE, echo=TRUE}
+names(alcoholdata_clean)[2] <- "Alcohol.Consumption.All.Types"
+names(alcoholdata_clean)[6] <- "Other"
+```
+
+--Renaming Countries
+
+```{r eval=TRUE, echo=TRUE}
+
+ind <- which(levels(alcoholdata_clean$Country)=="Democratic People's Republic of Korea", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "Republic of Korea"
+
+ind <- which(levels(alcoholdata_clean$Country)=="The former Yugoslav republic of Macedonia", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "Macedonia"
+
+ind <- which(levels(alcoholdata_clean$Country)=="Czechia", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "Czech Republic"
+
+ind <- which(levels(alcoholdata_clean$Country)=="Republic of Moldova", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "Moldova"
+
+ind <- which(levels(alcoholdata_clean$Country)=="United Kingdom of Great Britain and Northern Ireland", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "United Kingdom"
+
+ind <- which(levels(alcoholdata_clean$Country)=="United States of America", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "United States"
+
+ind <- which(levels(alcoholdata_clean$Country)=="Viet Nam", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "Vietnam"
+
+```
+
 --Clearing out NAs
 ```{r eval=TRUE, echo=TRUE}
-nrow(alcoholdata_clean)
-alcoholdata_clean <- na.omit(alcoholdata_clean)
+alcoholdata_clean <- subset(alcoholdata_clean, !is.na(alcoholdata_clean$Alcohol.Consumption.All.Types) & !is.na(alcoholdata_clean$Wine) & !is.na(alcoholdata_clean$Beer))
 alcoholdata_clean
-nrow(alcoholdata_clean)
 
 ```
 --Write into CSV
