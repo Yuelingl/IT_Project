@@ -1,0 +1,69 @@
+---
+title: "Regression Analysis"
+output:
+  html_document:
+    fig_width: 8
+    fig_height: 10
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+#> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup
+
+### Load Libraries 
+
+-- Load Library for reading CSV Files.
+-- Load tidyr-library
+-- Load dplyr-library
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+library(dplyr)
+library(ggplot2)
+library(corrplot)
+library(knitr)
+```
+### Read data
+
+```{r eval=FALSE, echo=TRUE}
+
+data <- read.csv("../data/master_data/master_data.csv")
+data
+help(cumsum)
+```
+```{r eval=FALSE, echo=TRUE}
+cum_data <- select(data, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual)
+cum_data
+test.Happiness.Score <- mutate(data, Happiness.total = Economy.GDP.per.Capita+Family+ Health.Life.Expectancy,Freedom+Trust.Government.Corruption+Generosity+ Dystopia.Residual)
+test.Happiness.Score
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, contains("PISA"))
+
+corr_data
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+
+summary(cor(corr_data[,2:17]))
+corrplot(cor(corr_data[,2:17]))
+
+
+```
+
+
+```{r eval=TRUE, echo=TRUE}
+
+pisa.alcohol.lm <- lm(PISA.Performance.Mean ~ Beer + Wine+ Spirits+Other, data)
+summary(pisa.alcohol.lm)
+
+```
