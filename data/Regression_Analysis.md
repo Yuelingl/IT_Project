@@ -2,10 +2,13 @@
 title: "Regression Analysis"
 output:
   html_document:
+    fig_width: 8
+    fig_height: 10
     df_print: paged
     keep_md: yes
     toc: yes
 ---
+#> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
 
 
