@@ -38,7 +38,7 @@ library(tidyr)
 
 
 ```{r eval=TRUE, echo=TRUE}
-pisadata_dirty <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE)
+pisadata_dirty <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE, dec = ".", stringsAsFactors = FALSE)
 pisadata_dirty
 ```
 
@@ -115,15 +115,30 @@ pisadata_clean <- subset(pisadata_clean, pisadata_clean[1] != ".." & pisadata_cl
 ```
 
 ```{r eval=TRUE, echo=TRUE}
-ind <- which(levels(pisadata_clean$Country)=="Korea, Rep.", arr.in=TRUE)
-levels(pisadata_clean$Country)[ind] <- "Republic of Korea"
+ind <- which(pisadata_clean$Country=="Korea, Rep.", arr.in=TRUE)
+pisadata_clean$Country[ind] <- "Republic of Korea"
 
-ind <- which(levels(pisadata_clean$Country)=="Macedonia, FYR", arr.in=TRUE)
-levels(pisadata_clean$Country)[ind] <- "Macedonia"
+ind <- which(pisadata_clean$Country=="Macedonia, FYR", arr.in=TRUE)
+pisadata_clean$Country[ind] <- "Macedonia"
 
-ind <- which(levels(pisadata_clean$Country)=="Slovak Republic", arr.in=TRUE)
-levels(pisadata_clean$Country)[ind] <- "Slovakia"
+ind <- which(pisadata_clean$Country=="Slovak Republic", arr.in=TRUE)
+pisadata_clean$Country[ind] <- "Slovakia"
 
+pisadata_clean
+```
+
+### Calculate PISA Mean Performance
+
+-- Convert Scale-Performance to numeric type  
+-- Calculate PISA Mean Performance for every row  
+-- Add Value to new column  
+
+```{r eval=TRUE, echo=TRUE}
+pisadata_clean[, c(2,3,4)] <- sapply(pisadata_clean[, c(2,3,4)], as.numeric)
+
+for (row in 1:nrow(pisadata_clean)) {
+  pisadata_clean$PISA.Performance.Mean[row] <- (pisadata_clean$PISA.Performance.Mean.Mathematics[row] + pisadata_clean$PISA.Performance.Mean.Reading[row] + pisadata_clean$PISA.Performance.Mean.Science[row]) / 3
+}
 pisadata_clean
 ```
 
