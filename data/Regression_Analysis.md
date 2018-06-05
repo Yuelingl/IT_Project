@@ -8,7 +8,7 @@ output:
     keep_md: yes
     toc: yes
 ---
-#> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
 
 
@@ -34,8 +34,8 @@ library(knitr)
 ```r
 data <- read.csv("../data/master_data/master_data.csv")
 data
-help(cumsum)
 ```
+
 
 ```r
 cum_data <- select(data, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual)
@@ -111,7 +111,7 @@ summary(cor(corr_data[,2:17]))
 corrplot(cor(corr_data[,2:17]))
 ```
 
-![](Regression_Analysis_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Regression_Analysis_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 
 
@@ -145,3 +145,83 @@ summary(pisa.alcohol.lm)
 ## Multiple R-squared:  0.3385,	Adjusted R-squared:  0.2929 
 ## F-statistic: 7.419 on 4 and 58 DF,  p-value: 6.758e-05
 ```
+
+```r
+pisa.happiness.lm <- lm(PISA.Performance.Mean~Happiness.Score, data)
+summary(pisa.happiness.lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = PISA.Performance.Mean ~ Happiness.Score, data = data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -89.71 -37.29   6.47  29.89  82.15 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      308.453     37.583   8.207 1.25e-11 ***
+## Happiness.Score   24.624      6.007   4.099 0.000117 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 44.4 on 65 degrees of freedom
+## Multiple R-squared:  0.2054,	Adjusted R-squared:  0.1932 
+## F-statistic:  16.8 on 1 and 65 DF,  p-value: 0.0001174
+```
+
+
+```r
+plotRegression <- function(para){
+  ggplot(para$model, aes_string(x=names(para$model)[2], y=names(para$model)[1]))+
+    geom_point(shape=1, size=3, color="#DF01A5")+
+    stat_smooth(method="lm", col="blue")+
+    labs(title=paste("R2=", signif(summary(para)$r.squared,5),
+                     "Intercept=", signif(para$coef[[1]],5),
+                     "Slope=", signif(para$coef[[2]],5),
+                     "P=",signif(summary(para)$coef[2,4],5)))
+}
+
+plot1<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, data))
+plot2<-plotRegression(lm(Happiness.Score~PISA.Performance.Mean, data))
+plot3<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, data))
+plot4<-plotRegression(lm(Happiness.Score~Spirits, data))
+plot5<-plotRegression(lm(Trust.Government.Corruption~Spirits, data))
+plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
+
+plot1
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
+```r
+plot2
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+
+```r
+plot3
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+
+```r
+plot4
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+
+```r
+plot5
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+
+```r
+plot6
+```
+
+![](Regression_Analysis_files/figure-html/unnamed-chunk-9-6.png)<!-- -->

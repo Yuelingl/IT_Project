@@ -8,7 +8,7 @@ output:
     keep_md: yes
     toc: yes
 ---
-#> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -35,12 +35,12 @@ library(knitr)
 
 data <- read.csv("../data/master_data/master_data.csv")
 data
-help(cumsum)
 ```
+
 ```{r eval=FALSE, echo=TRUE}
 cum_data <- select(data, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual)
 cum_data
-test.Happiness.Score <- mutate(data, Happiness.total = Economy.GDP.per.Capita+Family+ Health.Life.Expectancy,Freedom+Trust.Government.Corruption+Generosity+ Dystopia.Residual)
+test.Happiness.Score <- mutate(data, Happiness.total =(Economy.GDP.per.Capita+Family+ Health.Life.Expectancy+Freedom+Trust.Government.Corruption+Generosity+ Dystopia.Residual))
 test.Happiness.Score
 
 ```
@@ -66,4 +66,34 @@ corrplot(cor(corr_data[,2:17]))
 pisa.alcohol.lm <- lm(PISA.Performance.Mean ~ Beer + Wine+ Spirits+Other, data)
 summary(pisa.alcohol.lm)
 
+pisa.happiness.lm <- lm(PISA.Performance.Mean~Happiness.Score, data)
+summary(pisa.happiness.lm)
+
+```
+
+```{r eval=TRUE, echo=TRUE}
+
+plotRegression <- function(para){
+  ggplot(para$model, aes_string(x=names(para$model)[2], y=names(para$model)[1]))+
+    geom_point(shape=1, size=3, color="#DF01A5")+
+    stat_smooth(method="lm", col="blue")+
+    labs(title=paste("R2=", signif(summary(para)$r.squared,5),
+                     "Intercept=", signif(para$coef[[1]],5),
+                     "Slope=", signif(para$coef[[2]],5),
+                     "P=",signif(summary(para)$coef[2,4],5)))
+}
+
+plot1<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, data))
+plot2<-plotRegression(lm(Happiness.Score~PISA.Performance.Mean, data))
+plot3<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, data))
+plot4<-plotRegression(lm(Happiness.Score~Spirits, data))
+plot5<-plotRegression(lm(Trust.Government.Corruption~Spirits, data))
+plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
+
+plot1
+plot2
+plot3
+plot4
+plot5
+plot6
 ```
