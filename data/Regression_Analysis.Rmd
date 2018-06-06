@@ -2,7 +2,7 @@
 title: "Regression Analysis"
 output:
   html_document:
-    fig_width: 8
+    fig_width: 10
     fig_height: 10
     df_print: paged
     keep_md: yes
@@ -37,13 +37,7 @@ data <- read.csv("../data/master_data/master_data.csv")
 data
 ```
 
-```{r eval=FALSE, echo=TRUE}
-cum_data <- select(data, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual)
-cum_data
-test.Happiness.Score <- mutate(data, Happiness.total =(Economy.GDP.per.Capita+Family+ Health.Life.Expectancy+Freedom+Trust.Government.Corruption+Generosity+ Dystopia.Residual))
-test.Happiness.Score
-
-```
+-- Select relevant columns for correlation
 
 ```{r eval=TRUE, echo=TRUE}
 corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, contains("PISA"))
@@ -51,6 +45,8 @@ corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capit
 corr_data
 
 ```
+
+-- Perform Correlation
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -60,16 +56,47 @@ corrplot(cor(corr_data[,2:17]))
 
 ```
 
+Interpretation
+
+
 
 ```{r eval=TRUE, echo=TRUE}
 
-pisa.alcohol.lm <- lm(PISA.Performance.Mean ~ Beer + Wine+ Spirits+Other, data)
+pisa.alcohol.lm <- lm(PISA.Performance.Mean ~Beer + Wine+ Spirits+Other, data)
 summary(pisa.alcohol.lm)
+
+pisa.alcohol2.lm <- lm(PISA.Performance.Mean ~Alcohol.Consumption.All.Types, data)
+summary(pisa.alcohol2.lm)
+
 
 pisa.happiness.lm <- lm(PISA.Performance.Mean~Happiness.Score, data)
 summary(pisa.happiness.lm)
 
+happiness.alcohol.lm<-lm(Happiness.Score ~ Alcohol.Consumption.All.Types, data)
+summary(happiness.alcohol.lm)
+
+pisa.economy.lm <- lm(PISA.Performance.Mean ~ Economy.GDP.per.Capita , data)
+summary(pisa.economy.lm)
+
+
 ```
+
+Interpretation:
+
+High levels of significance point to positive relationships between our chosen variables:
+
+-- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.
+-- Alcohol consumption in general is a significant predictor variable for the average PISA performance.
+-- The Happiness Score is a significant predictor for the average PISA performance.
+
+However one has to consider the low levels of R-square in all of the aforementioned regressions. This means that, although the low P values indicate a real relationship between predictors and response variables, the precision of the prediction is not very high on all accounts.
+This can be led to the fact, that our data is very processed, on the one hand Happiness Score being a highly calculated variable and on the other having average scores for entire countries, rather than single oberservation variables. 
+
+
+Lack of significance for the relationship between Happiness Score and Alcohol Consumption. 
+
+
+
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -84,16 +111,12 @@ plotRegression <- function(para){
 }
 
 plot1<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, data))
-plot2<-plotRegression(lm(Happiness.Score~PISA.Performance.Mean, data))
+
 plot3<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, data))
-plot4<-plotRegression(lm(Happiness.Score~Spirits, data))
-plot5<-plotRegression(lm(Trust.Government.Corruption~Spirits, data))
 plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
 
 plot1
-plot2
 plot3
-plot4
-plot5
 plot6
 ```
+
