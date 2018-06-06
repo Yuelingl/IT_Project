@@ -34,9 +34,9 @@ library(dplyr)
 -- Read CSV File "happiness_data.csv"  
 
 ```{r eval=TRUE, echo=TRUE}
-dfPisa <- read.csv("clean_data/pisa_data.csv")
-dfAlcohol <- read.csv("clean_data/alcohol_data.csv")
-dfHappiness <- read.csv("clean_data/happiness_data.csv")
+dfPisa <- read.csv("clean_data/pisa_data.csv", stringsAsFactors = FALSE)
+dfAlcohol <- read.csv("clean_data/alcohol_data.csv", stringsAsFactors = FALSE)
+dfHappiness <- read.csv("clean_data/happiness_data.csv", stringsAsFactors = FALSE)
 
 dfPisa
 dfAlcohol
@@ -59,8 +59,7 @@ dfData
 
 ### Arrange Data
 
--- Load own R-Functions for Multi-Merge  
--- Merge the three Data Sets
+-- drop not often colums to minimze master data
 
 ```{r eval=TRUE, echo=TRUE}
 drops <- c(
@@ -87,5 +86,3 @@ masterData
 write.csv(dfData, file = "master_data/master_data.csv",row.names=FALSE, na="", col.names = TRUE)
 write.csv(masterData, file = "master_data/master_data.min.csv",row.names=FALSE, na="", col.names = TRUE)
 ```
-
-
