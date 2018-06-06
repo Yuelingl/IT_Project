@@ -1,0 +1,76 @@
+---
+title: "Descriptive Analysis"
+output:
+  html_document:
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Setup
+
+### Load Librarys
+
+-- Load Library for reading CSV Files.
+-- Load tidyr-library
+-- Load dplyr-library
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+
+```
+
+### Read Data
+```{r eval=FALSE, echo=TRUE}
+master.data <- read.csv("data/master_data/master_data.csv")
+master.data
+
+```
+
+## Select relevant columns for regional analysis
+
+Too many countries for plot analysis, therefore we take the respective regions as categories
+
+```{r eval=FALSE, echo=TRUE}
+
+region.data <- select(master.data, -Country, Happiness.Score.Standard.Error)
+region.data
+
+```
+
+How the Happiness Score is made up
+```{r eval=FALSE, echo=TRUE}
+
+theme_set(theme_classic())
+
+happ.box<- ggplot(region.data, aes(Region, Happiness.Score))
+
+happ.box + geom_boxplot(varwidth = T,   fill="plum") +
+  theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
+  labs(title="Happiness across Regions",
+       x="Region",
+       y="Happiness Score")
+
+```
+```{r eval=FALSE, echo=TRUE}
+
+theme_set(theme_classic())
+
+happ.histo<- ggplot(region.data, aes(Region, Happiness.Score)) +scale_fill_brewer(palette="Spectral")
+
+happ.histo + geom_histogram(aes(fill=Region),
+                            binwidth=.1,
+                            col="black",
+                            size=.1) +
+  labs(title="Happiness across Regions")
+
+```
+
+### 
