@@ -258,7 +258,9 @@ pisadata_clean</code></pre>
 </div>
 <div id="calculate-pisa-mean-performance" class="section level3">
 <h3>Calculate PISA Mean Performance</h3>
-<p>– Convert Scale-Performance to numeric type – Calculate PISA Mean Performance for every row – Add Value to new column</p>
+<p>– Convert Scale-Performance to numeric type<br />
+– Calculate PISA Mean Performance for every row<br />
+– Add Value to new column</p>
 <pre class="r"><code>pisadata_clean[, c(2,3,4)] &lt;- sapply(pisadata_clean[, c(2,3,4)], as.numeric)
 
 for (row in 1:nrow(pisadata_clean)) {
