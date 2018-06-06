@@ -7,9 +7,7 @@ output:
     toc: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 ## Setup
 
 ### Load Librarys
@@ -18,34 +16,34 @@ knitr::opts_chunk$set(echo = TRUE)
 -- Load tidyr-library
 -- Load dplyr-library
 
-```{r eval=FALSE, echo=TRUE}
+
+```r
 library(csvread)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(ggthemes)
-
 ```
 
 ### Read Data
-```{r eval=FALSE, echo=TRUE}
+
+```r
 master.data <- read.csv("../data/master_data/master_data.csv")
 master.data
-
 ```
 
 ## Select relevant columns for regional analysis
 
 Too many countries for plot analysis, therefore we take the respective regions as categories
 
-```{r eval=FALSE, echo=TRUE}
 
+```r
 region.data <- select(master.data, -Country, Happiness.Score.Standard.Error)
 region.data
-
 ```
 
-```{r eval=FALSE, echo=TRUE}
+
+```r
 help.data<- select(master.data, Region,Happiness.Score, 5:11)
 
 help.data<-help.data%>%
@@ -53,12 +51,11 @@ help.data<-help.data%>%
   summarise_all(funs(mean))
 
 help.data
-
 ```
 
 How the Happiness Score is made up
-```{r eval=FALSE, echo=TRUE}
 
+```r
 theme_set(theme_classic())
 
 happ.box<- ggplot(region.data, aes(Region, Happiness.Score))
@@ -68,34 +65,29 @@ happ.box + geom_boxplot(varwidth = T,   fill="plum") +
   labs(title="Happiness across Regions",
        x="Region",
        y="Happiness Score")
-
 ```
 
 
 Preparing the dataset for binning
 
 
-```{r eval=FALSE, echo=TRUE}
 
+```r
 binnable.happiness.data <- gather(help.data, Happiness.Reasons, Amount, 3:9 )
 binnable.happiness.data<- select(binnable.happiness.data, Region,Happiness.Reasons, Amount)
 binnable.happiness.data
-
 ```
 
 
 
-```{r eval=FALSE, echo=TRUE}
 
+```r
 theme_set(theme_classic())
 
 happ.histo<- ggplot(binnable.happiness.data, aes(Region, Amount))
 
 happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "stack", stat="identity")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5)) 
- 
-
-
 ```
 
 ### 
