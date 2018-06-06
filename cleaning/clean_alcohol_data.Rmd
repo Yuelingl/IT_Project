@@ -142,7 +142,10 @@ names(alcoholdata_clean)[6] <- "Other"
 ```{r eval=TRUE, echo=TRUE}
 
 ind <- which(levels(alcoholdata_clean$Country)=="Democratic People's Republic of Korea", arr.in=TRUE)
-levels(alcoholdata_clean$Country)[ind] <- "Republic of Korea"
+levels(alcoholdata_clean$Country)[ind] <- "South Korea"
+
+ind <- which(levels(alcoholdata_clean$Country)=="Republic of Korea", arr.in=TRUE)
+levels(alcoholdata_clean$Country)[ind] <- "North Korea"
 
 ind <- which(levels(alcoholdata_clean$Country)=="The former Yugoslav republic of Macedonia", arr.in=TRUE)
 levels(alcoholdata_clean$Country)[ind] <- "Macedonia"

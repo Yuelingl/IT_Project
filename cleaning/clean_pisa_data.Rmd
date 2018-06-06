@@ -116,7 +116,10 @@ pisadata_clean <- subset(pisadata_clean, pisadata_clean[1] != ".." & pisadata_cl
 
 ```{r eval=TRUE, echo=TRUE}
 ind <- which(pisadata_clean$Country=="Korea, Rep.", arr.in=TRUE)
-pisadata_clean$Country[ind] <- "Republic of Korea"
+pisadata_clean$Country[ind] <- "South Korea"
+
+ind <- which(pisadata_clean$Country=="Republic of Korea", arr.in=TRUE)
+pisadata_clean$Country[ind] <- "North Korea"
 
 ind <- which(pisadata_clean$Country=="Macedonia, FYR", arr.in=TRUE)
 pisadata_clean$Country[ind] <- "Macedonia"

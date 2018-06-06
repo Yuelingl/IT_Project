@@ -61,8 +61,8 @@ names(happiness_raw)[11]<- "Dystopia.Residual"
 
 ```{r eval=TRUE, echo=TRUE}
 
-ind <- which(levels(happiness_raw$Country)=="South Korea", arr.in=TRUE)
-levels(happiness_raw$Country)[ind] <- "Republic of Korea"
+ind <- which(levels(happiness_raw$Country)=="Republic of Korea", arr.in=TRUE)
+levels(happiness_raw$Country)[ind] <- "North Korea"
 
 ind <- which(levels(happiness_raw$Country)=="Russia", arr.in=TRUE)
 levels(happiness_raw$Country)[ind] <- "Russian Federation"

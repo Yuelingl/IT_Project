@@ -10,7 +10,7 @@ output:
 
 
 
-## Introduction
+## Setup
 
 ### Load Libraries
 
@@ -47,14 +47,13 @@ WorldData <- dplyr::filter(WorldData, region != "Antarctica")
 WorldData <- ggplot2::fortify(WorldData)
 
 names(dfAlcohol)[1] <- "region"
-ind <- which(dfAlcohol$region=="Republic of Korea", arr.in=TRUE)
-dfAlcohol$region[ind] <- "South Korea"
 ind <- which(dfAlcohol$region=="Russian Federation", arr.in=TRUE)
 dfAlcohol$region[ind] <- "Russia"
 ind <- which(dfAlcohol$region=="United Kingdom", arr.in=TRUE)
 dfAlcohol$region[ind] <- "UK"
 ind <- which(dfAlcohol$region=="United States", arr.in=TRUE)
 dfAlcohol$region[ind] <- "USA"
+
 ind <- which(WorldData$region=="Trinidad", arr.in=TRUE)
 for (country in ind) {
   WorldData$region[ind] <- "Trinidad and Tobago"
@@ -65,8 +64,6 @@ for (country in ind) {
 }
 
 names(dfHappiness)[1] <- "region"
-ind <- which(dfHappiness$region=="Republic of Korea", arr.in=TRUE)
-dfHappiness$region[ind] <- "South Korea"
 ind <- which(dfHappiness$region=="Russian Federation", arr.in=TRUE)
 dfHappiness$region[ind] <- "Russia"
 ind <- which(dfHappiness$region=="United Kingdom", arr.in=TRUE)
@@ -75,8 +72,6 @@ ind <- which(dfHappiness$region=="United States", arr.in=TRUE)
 dfHappiness$region[ind] <- "USA"
 
 names(dfPisa)[1] <- "region"
-ind <- which(dfPisa$region=="Republic of Korea", arr.in=TRUE)
-dfPisa$region[ind] <- "South Korea"
 ind <- which(dfPisa$region=="Russian Federation", arr.in=TRUE)
 dfPisa$region[ind] <- "Russia"
 ind <- which(dfPisa$region=="United Kingdom", arr.in=TRUE)
