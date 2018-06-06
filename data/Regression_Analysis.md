@@ -107,7 +107,7 @@ summary(cor(corr_data[,2:17]))
 corrplot(cor(corr_data[,2:17]))
 ```
 
-![](Regression_Analysis_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](Regression_Analysis_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 Interpretation
 
@@ -289,17 +289,17 @@ plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
 plot1
 ```
 
-![](Regression_Analysis_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](Regression_Analysis_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 plot3
 ```
 
-![](Regression_Analysis_files/figure-html/unnamed-chunk-12-2.png)<!-- -->
+![](Regression_Analysis_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
 
 ```r
 plot6
 ```
 
-![](Regression_Analysis_files/figure-html/unnamed-chunk-12-3.png)<!-- -->
+![](Regression_Analysis_files/figure-html/unnamed-chunk-13-3.png)<!-- -->
 
