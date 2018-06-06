@@ -192,9 +192,9 @@ pisadata_clean
 
 ### Calculate PISA Mean Performance
 
--- Convert Scale-Performance to numeric type
--- Calculate PISA Mean Performance for every row
--- Add Value to new column
+-- Convert Scale-Performance to numeric type  
+-- Calculate PISA Mean Performance for every row  
+-- Add Value to new column  
 
 
 ```r
