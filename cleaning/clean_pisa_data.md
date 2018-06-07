@@ -39,8 +39,8 @@ library(tidyr)
 
 
 ```r
-pisadata_dirty <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE, dec = ".", stringsAsFactors = FALSE)
-pisadata_dirty
+dfPISA.raw <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE, dec = ".", stringsAsFactors = FALSE)
+dfPISA.raw
 ```
 
 <div data-pagedtable="false">
@@ -60,7 +60,7 @@ pisadata_dirty
 
 
 ```r
-tail(pisadata_dirty)
+tail(dfPISA.raw)
 ```
 
 <div data-pagedtable="false">
@@ -70,9 +70,9 @@ tail(pisadata_dirty)
 </div>
 
 ```r
-n<-dim(pisadata_dirty)[1]
-pisadata_dirty<-pisadata_dirty[1:(n-5),]
-tail(pisadata_dirty)
+n<-dim(dfPISA.raw)[1]
+dfPISA.raw<-dfPISA.raw[1:(n-5),]
+tail(dfPISA.raw)
 ```
 
 <div data-pagedtable="false">
@@ -82,7 +82,7 @@ tail(pisadata_dirty)
 </div>
 
 ```r
-names(pisadata_dirty)
+names(dfPISA.raw)
 ```
 
 ```
@@ -91,11 +91,11 @@ names(pisadata_dirty)
 ```
 
 ```r
-names(pisadata_dirty)[1] <- "Country"
-names(pisadata_dirty)[5] <- "Score.2013"
-names(pisadata_dirty)[6] <- "Score.2014"
-names(pisadata_dirty)[7] <- "Score.2015"
-names(pisadata_dirty)
+names(dfPISA.raw)[1] <- "Country"
+names(dfPISA.raw)[5] <- "Score.2013"
+names(dfPISA.raw)[6] <- "Score.2014"
+names(dfPISA.raw)[7] <- "Score.2015"
+names(dfPISA.raw)
 ```
 
 ```
@@ -105,8 +105,8 @@ names(pisadata_dirty)
 
 ```r
 drops <- c("Country.Code","Series.Code", "Score.2013", "Score.2014")
-pisadata_dirty <- pisadata_dirty[ , !(names(pisadata_dirty) %in% drops)]
-head(pisadata_dirty)
+dfPISA.raw <- dfPISA.raw[ , !(names(dfPISA.raw) %in% drops)]
+head(dfPISA.raw)
 ```
 
 <div data-pagedtable="false">
@@ -120,13 +120,13 @@ head(pisadata_dirty)
 -- Apart the Mean Performance of the different Scales 
 -- Delete the unneeded "Series.Code"-column  
 -- Rename the "Score.2015"-column to the name of the Scale  
--- Free memory by deleting the old pisadata_dirty frame
+-- Free memory by deleting the old dfPISA.raw frame
 
 
 
 ```r
-pisadata_clean <- tidyr::spread(pisadata_dirty, Series.Name, Score.2015)
-pisadata_clean
+dfPISA.clean <- tidyr::spread(dfPISA.raw, Series.Name, Score.2015)
+dfPISA.clean
 ```
 
 <div data-pagedtable="false">
@@ -137,7 +137,7 @@ pisadata_clean
 
 
 ```r
-pisadata_dirty <- NULL
+dfPISA.raw <- NULL
 ```
 
 ###Clean data
@@ -156,36 +156,36 @@ drops <- c(
   "PISA: Mean performance on the reading scale. Male", 
   "PISA: Mean performance on the science scale. Female", 
   "PISA: Mean performance on the science scale. Male")
-pisadata_clean <- pisadata_clean[ , !(names(pisadata_clean) %in% drops)]
+dfPISA.clean <- dfPISA.clean[ , !(names(dfPISA.clean) %in% drops)]
 ```
 
 
 ```r
-names(pisadata_clean)[2] <- "PISA.Performance.Mean.Mathematics"
-names(pisadata_clean)[3] <- "PISA.Performance.Mean.Reading"
-names(pisadata_clean)[4] <- "PISA.Performance.Mean.Science"
+names(dfPISA.clean)[2] <- "PISA.Performance.Mean.Mathematics"
+names(dfPISA.clean)[3] <- "PISA.Performance.Mean.Reading"
+names(dfPISA.clean)[4] <- "PISA.Performance.Mean.Science"
 ```
 
 
 ```r
-pisadata_clean <- subset(pisadata_clean, pisadata_clean[1] != ".." & pisadata_clean[2] != ".." & pisadata_clean[3] != ".." & pisadata_clean[4] != "..")
+dfPISA.clean <- subset(dfPISA.clean, dfPISA.clean[1] != ".." & dfPISA.clean[2] != ".." & dfPISA.clean[3] != ".." & dfPISA.clean[4] != "..")
 ```
 
 
 ```r
-ind <- which(pisadata_clean$Country=="Korea, Rep.", arr.in=TRUE)
-pisadata_clean$Country[ind] <- "South Korea"
+ind <- which(dfPISA.clean$Country=="Korea, Rep.", arr.in=TRUE)
+dfPISA.clean$Country[ind] <- "South Korea"
 
-ind <- which(pisadata_clean$Country=="Republic of Korea", arr.in=TRUE)
-pisadata_clean$Country[ind] <- "North Korea"
+ind <- which(dfPISA.clean$Country=="Republic of Korea", arr.in=TRUE)
+dfPISA.clean$Country[ind] <- "North Korea"
 
-ind <- which(pisadata_clean$Country=="Macedonia, FYR", arr.in=TRUE)
-pisadata_clean$Country[ind] <- "Macedonia"
+ind <- which(dfPISA.clean$Country=="Macedonia, FYR", arr.in=TRUE)
+dfPISA.clean$Country[ind] <- "Macedonia"
 
-ind <- which(pisadata_clean$Country=="Slovak Republic", arr.in=TRUE)
-pisadata_clean$Country[ind] <- "Slovakia"
+ind <- which(dfPISA.clean$Country=="Slovak Republic", arr.in=TRUE)
+dfPISA.clean$Country[ind] <- "Slovakia"
 
-pisadata_clean
+dfPISA.clean
 ```
 
 <div data-pagedtable="false">
@@ -202,12 +202,12 @@ pisadata_clean
 
 
 ```r
-pisadata_clean[, c(2,3,4)] <- sapply(pisadata_clean[, c(2,3,4)], as.numeric)
+dfPISA.clean[, c(2,3,4)] <- sapply(dfPISA.clean[, c(2,3,4)], as.numeric)
 
-for (row in 1:nrow(pisadata_clean)) {
-  pisadata_clean$PISA.Performance.Mean[row] <- (pisadata_clean$PISA.Performance.Mean.Mathematics[row] + pisadata_clean$PISA.Performance.Mean.Reading[row] + pisadata_clean$PISA.Performance.Mean.Science[row]) / 3
+for (row in 1:nrow(dfPISA.clean)) {
+  dfPISA.clean$PISA.Performance.Mean[row] <- (dfPISA.clean$PISA.Performance.Mean.Mathematics[row] + dfPISA.clean$PISA.Performance.Mean.Reading[row] + dfPISA.clean$PISA.Performance.Mean.Science[row]) / 3
 }
-pisadata_clean
+dfPISA.clean
 ```
 
 <div data-pagedtable="false">
@@ -222,10 +222,10 @@ pisadata_clean
 
 
 ```r
-write.csv(pisadata_clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="", col.names = TRUE)
+write.csv(dfPISA.clean, file = "../data/clean_data/pisa_data.csv",row.names=FALSE, na="", col.names = TRUE)
 ```
 
 ```
-## Warning in write.csv(pisadata_clean, file = "../data/clean_data/
+## Warning in write.csv(dfPISA.clean, file = "../data/clean_data/
 ## pisa_data.csv", : attempt to set 'col.names' ignored
 ```

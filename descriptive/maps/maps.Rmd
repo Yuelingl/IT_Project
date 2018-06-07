@@ -32,9 +32,9 @@ library(csvread)
 -- Load CSV
 
 ```{r eval=TRUE, echo=TRUE}
-dfPisa <- read.csv("../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)
-dfAlcohol <- read.csv("../../data/clean_data/alcohol_data.csv", stringsAsFactors = FALSE)
-dfHappiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
+dfData.PISA <- read.csv("../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)
+dfData.Alcohol <- read.csv("../../data/clean_data/alcohol_data.csv", stringsAsFactors = FALSE)
+dfData.Happiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
 ```
 
 ### Adapt Data to ggplot2-World Map {.tabset .tabset-fade}
@@ -42,58 +42,59 @@ dfHappiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFac
 #### World Data
 
 ```{r eval=TRUE, echo=TRUE}
-WorldData <- ggplot2::map_data('world')
-WorldData <- dplyr::filter(WorldData, region != "Antarctica")
-WorldData <- ggplot2::fortify(WorldData)
+dfData.World <- ggplot2::map_data('world')
+dfData.World <- dplyr::filter(dfData.World, region != "Antarctica")
+dfData.World <- ggplot2::fortify(dfData.World)
 
-ind <- which(WorldData$region=="Trinidad", arr.in=TRUE)
+ind <- which(dfData.World$region=="Trinidad", arr.in=TRUE)
 for (country in ind) {
-  WorldData$region[ind] <- "Trinidad and Tobago"
+  dfData.World$region[ind] <- "Trinidad and Tobago"
 }
-ind <- which(WorldData$region=="Tobago", arr.in=TRUE)
+ind <- which(dfData.World$region=="Tobago", arr.in=TRUE)
 for (country in ind) {
-  WorldData$region[ind] <- "Trinidad and Tobago"
+  dfData.World$region[ind] <- "Trinidad and Tobago"
 }
-WorldData
+dfData.World
 ```
 
 #### Alcohol Study
 
 ```{r eval=TRUE, echo=TRUE}
-names(dfAlcohol)[1] <- "region"
-ind <- which(dfAlcohol$region=="Russian Federation", arr.in=TRUE)
-dfAlcohol$region[ind] <- "Russia"
-ind <- which(dfAlcohol$region=="United Kingdom", arr.in=TRUE)
-dfAlcohol$region[ind] <- "UK"
-ind <- which(dfAlcohol$region=="United States", arr.in=TRUE)
-dfAlcohol$region[ind] <- "USA"
-dfAlcohol
+dfData.Alcohol
+names(dfData.Alcohol)[1] <- "region"
+ind <- which(dfData.Alcohol$region=="Russian Federation", arr.in=TRUE)
+dfData.Alcohol$region[ind] <- "Russia"
+ind <- which(dfData.Alcohol$region=="United Kingdom", arr.in=TRUE)
+dfData.Alcohol$region[ind] <- "UK"
+ind <- which(dfData.Alcohol$region=="United States", arr.in=TRUE)
+dfData.Alcohol$region[ind] <- "USA"
+dfData.Alcohol
 ```
 
 #### Happiness Record
 
 ```{r eval=TRUE, echo=TRUE}
-names(dfHappiness)[1] <- "region"
-ind <- which(dfHappiness$region=="Russian Federation", arr.in=TRUE)
-dfHappiness$region[ind] <- "Russia"
-ind <- which(dfHappiness$region=="United Kingdom", arr.in=TRUE)
-dfHappiness$region[ind] <- "UK"
-ind <- which(dfHappiness$region=="United States", arr.in=TRUE)
-dfHappiness$region[ind] <- "USA"
-dfHappiness
+names(dfData.Happiness)[1] <- "region"
+ind <- which(dfData.Happiness$region=="Russian Federation", arr.in=TRUE)
+dfData.Happiness$region[ind] <- "Russia"
+ind <- which(dfData.Happiness$region=="United Kingdom", arr.in=TRUE)
+dfData.Happiness$region[ind] <- "UK"
+ind <- which(dfData.Happiness$region=="United States", arr.in=TRUE)
+dfData.Happiness$region[ind] <- "USA"
+dfData.Happiness
 ```
 
 #### PISA-Study
 
 ```{r eval=TRUE, echo=TRUE}
-names(dfPisa)[1] <- "region"
-ind <- which(dfPisa$region=="Russian Federation", arr.in=TRUE)
-dfPisa$region[ind] <- "Russia"
-ind <- which(dfPisa$region=="United Kingdom", arr.in=TRUE)
-dfPisa$region[ind] <- "UK"
-ind <- which(dfPisa$region=="United States", arr.in=TRUE)
-dfPisa$region[ind] <- "USA"
-dfPisa
+names(dfData.PISA)[1] <- "region"
+ind <- which(dfData.PISA$region=="Russian Federation", arr.in=TRUE)
+dfData.PISA$region[ind] <- "Russia"
+ind <- which(dfData.PISA$region=="United Kingdom", arr.in=TRUE)
+dfData.PISA$region[ind] <- "UK"
+ind <- which(dfData.PISA$region=="United States", arr.in=TRUE)
+dfData.PISA$region[ind] <- "USA"
+dfData.PISA
 ```
 
 ###
@@ -106,15 +107,15 @@ dfPisa
 -- White countries have not participated in the study
 
 ```{r eval=TRUE, echo=TRUE}
-df <- data.frame(region=dfAlcohol$region, 
-                 value=dfAlcohol$Alcohol.Consumption.All.Types, 
+df <- data.frame(region=dfData.Alcohol$region, 
+                 value=dfData.Alcohol$Alcohol.Consumption.All.Types, 
                  stringsAsFactors=FALSE)
 
 p <- ggplot2::ggplot()
-p <- p + ggplot2::geom_map(data=WorldData, map=WorldData,
+p <- p + ggplot2::geom_map(data=dfData.World, map=dfData.World,
                   ggplot2::aes(x=long, y=lat, group=group, map_id=region),
                   fill="white", colour="#7f7f7f", size=0.3)
-p <- p + ggplot2::geom_map(data=df, map=WorldData,
+p <- p + ggplot2::geom_map(data=df, map=dfData.World,
                   ggplot2::aes(fill=value, map_id=region),
                   colour="#7f7f7f", size=0.3)
 p <- p + ggplot2::coord_map("rectangular", lat0=0, xlim=c(-180,180), ylim=c(-60, 90))
@@ -134,15 +135,15 @@ p
 -- White countries have not participated in the study
 
 ```{r eval=TRUE, echo=TRUE}
-df <- data.frame(region=dfHappiness$region, 
-                 value=dfHappiness$Happiness.Score, 
+df <- data.frame(region=dfData.Happiness$region, 
+                 value=dfData.Happiness$Happiness.Score, 
                  stringsAsFactors=FALSE)
 
 p <- ggplot2::ggplot()
-p <- p + ggplot2::geom_map(data=WorldData, map=WorldData,
+p <- p + ggplot2::geom_map(data=dfData.World, map=dfData.World,
                   ggplot2::aes(x=long, y=lat, group=group, map_id=region),
                   fill="white", colour="#7f7f7f", size=0.3)
-p <- p + ggplot2::geom_map(data=df, map=WorldData,
+p <- p + ggplot2::geom_map(data=df, map=dfData.World,
                   ggplot2::aes(fill=value, map_id=region),
                   colour="#7f7f7f", size=0.3)
 p <- p + ggplot2::coord_map("rectangular", lat0=0, xlim=c(-180,180), ylim=c(-60, 90))
@@ -162,15 +163,15 @@ p
 -- White countries have not participated in the study
 
 ```{r eval=TRUE, echo=TRUE}
-df <- data.frame(region=dfPisa$region, 
-                 value=dfPisa$PISA.Performance.Mean, 
+df <- data.frame(region=dfData.PISA$region, 
+                 value=dfData.PISA$PISA.Performance.Mean, 
                  stringsAsFactors=FALSE)
 
 p <- ggplot2::ggplot()
-p <- p + ggplot2::geom_map(data=WorldData, map=WorldData,
+p <- p + ggplot2::geom_map(data=dfData.World, map=dfData.World,
                   ggplot2::aes(x=long, y=lat, group=group, map_id=region),
                   fill="white", colour="#7f7f7f", size=0.3)
-p <- p + ggplot2::geom_map(data=df, map=WorldData,
+p <- p + ggplot2::geom_map(data=df, map=dfData.World,
                   ggplot2::aes(fill=value, map_id=region),
                   colour="#7f7f7f", size=0.3)
 p <- p + ggplot2::coord_map("rectangular", lat0=0, xlim=c(-180,180), ylim=c(-60, 90))

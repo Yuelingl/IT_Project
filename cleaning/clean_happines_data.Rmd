@@ -32,8 +32,8 @@ library(csvread)
 -- Read CSV File "world_happiness_report_2015.csv"  
 
 ```{r eval=TRUE, echo=TRUE}
-happiness_raw <- read.csv(file = "../data/raw_data/world_happiness_report_2015.csv", header = TRUE)
-happiness_raw
+dfHappiness.raw <- read.csv(file = "../data/raw_data/world_happiness_report_2015.csv", header = TRUE)
+dfHappiness.raw
 ```
 
 ## Clean Data
@@ -41,40 +41,40 @@ happiness_raw
 -- Delete Column, as it will be incorrect, when later deleting countries
 
 ```{r eval=TRUE, echo=TRUE}
-happiness_raw[3] <- NULL
+dfHappiness.raw[3] <- NULL
 ```
 
 -- Renaming columns
 
 ```{r eval=TRUE, echo=TRUE}
-names(happiness_raw)[3]<- "Happiness.Score"
-names(happiness_raw)[4]<- "Happiness.Score.Standard.Error"
-names(happiness_raw)[5]<- "Economy.GDP.per.Capita"
-names(happiness_raw)[6]<- "Family"
-names(happiness_raw)[7]<- "Health.Life.Expectancy"
-names(happiness_raw)[8]<- "Freedom"
-names(happiness_raw)[9]<- "Trust.Government.Corruption"
-names(happiness_raw)[10]<- "Generosity"
-names(happiness_raw)[11]<- "Dystopia.Residual"
+names(dfHappiness.raw)[3]<- "Happiness.Score"
+names(dfHappiness.raw)[4]<- "Happiness.Score.Standard.Error"
+names(dfHappiness.raw)[5]<- "Economy.GDP.per.Capita"
+names(dfHappiness.raw)[6]<- "Family"
+names(dfHappiness.raw)[7]<- "Health.Life.Expectancy"
+names(dfHappiness.raw)[8]<- "Freedom"
+names(dfHappiness.raw)[9]<- "Trust.Government.Corruption"
+names(dfHappiness.raw)[10]<- "Generosity"
+names(dfHappiness.raw)[11]<- "Dystopia.Residual"
 ```
 
 -- rename Countries  
 
 ```{r eval=TRUE, echo=TRUE}
 
-ind <- which(levels(happiness_raw$Country)=="Republic of Korea", arr.in=TRUE)
-levels(happiness_raw$Country)[ind] <- "North Korea"
+ind <- which(levels(dfHappiness.raw$Country)=="Republic of Korea", arr.in=TRUE)
+levels(dfHappiness.raw$Country)[ind] <- "North Korea"
 
-ind <- which(levels(happiness_raw$Country)=="Russia", arr.in=TRUE)
-levels(happiness_raw$Country)[ind] <- "Russian Federation"
+ind <- which(levels(dfHappiness.raw$Country)=="Russia", arr.in=TRUE)
+levels(dfHappiness.raw$Country)[ind] <- "Russian Federation"
 
-happiness_clean <- happiness_raw
-happiness_clean
+dfHappiness.clean <- dfHappiness.raw
+dfHappiness.clean
 ```
 
 -- Write into CSV
 
 ```{r eval=TRUE, echo=TRUE}
-write.csv(happiness_clean, file = "../data/clean_data/happiness_data.csv",row.names=FALSE, na="", col.names = TRUE)
+write.csv(dfHappiness.clean, file = "../data/clean_data/happiness_data.csv",row.names=FALSE, na="", col.names = TRUE)
 
 ```
