@@ -41,22 +41,14 @@ Too many countries for plot analysis, therefore we take the respective regions a
 ```{r eval=FALSE, echo=TRUE}
 
 region.data <- select(master.data, -Country, Happiness.Score.Standard.Error)
-region.data
+region.data 
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
-help.data<- select(master.data, Region,Happiness.Score, 5:11)
 
-help.data<-help.data%>%
-  group_by(Region)%>%
-  summarise_all(funs(mean))
-
-help.data
-
-```
 
 How the Happiness Score is made up
+
 ```{r eval=FALSE, echo=TRUE}
 
 theme_set(theme_classic())
@@ -71,19 +63,53 @@ happ.box + geom_boxplot(varwidth = T,   fill="plum") +
 
 ```
 
+```{r eval=FALSE, echo=TRUE}
 
-Preparing the dataset for binning
+theme_set(theme_classic())
 
+happ.box<- ggplot(region.data, aes(Region, Alcohol.Consumption.All.Types))
+
+happ.box + geom_boxplot(varwidth = T,   fill="goldenrod2") +
+  theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
+  labs(title="Alcohol Consumption across Regions",
+       x="Region",
+       y="Alcohol Consumption")
+
+```
 
 ```{r eval=FALSE, echo=TRUE}
 
-binnable.happiness.data <- gather(help.data, Happiness.Reasons, Amount, 3:9 )
+theme_set(theme_classic())
+
+happ.box<- ggplot(region.data, aes(Region, PISA.Performance.Mean))
+
+happ.box + geom_boxplot(varwidth = T,   fill="aquamarine4") +
+  theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
+  labs(title="PISA Performance across Regions",
+       x="Region",
+       y="PISA Performance")
+
+```
+
+Preparing the dataset for binning
+```{r eval=FALSE, echo=TRUE}
+help.happiness.data<- select(master.data, Region,Happiness.Score, 5:11)
+
+help.happiness.data<-help.happiness.data%>%
+  group_by(Region)%>%
+  summarise_all(funs(mean))
+
+help.happiness.data
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+
+binnable.happiness.data <- gather(help.happiness.data, Happiness.Reasons, Amount, 3:9 )
 binnable.happiness.data<- select(binnable.happiness.data, Region,Happiness.Reasons, Amount)
 binnable.happiness.data
 
 ```
-
-
 
 ```{r eval=FALSE, echo=TRUE}
 
@@ -92,8 +118,78 @@ theme_set(theme_classic())
 happ.histo<- ggplot(binnable.happiness.data, aes(Region, Amount))
 
 happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "stack", stat="identity")+
-  theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5)) 
- 
+  theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
+  labs(title="What's most important for Happiness across Regions",
+       x="Region",
+       y="Happiness Score")
+
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+help.alcohol.data<- select(master.data, Region, 16:20)
+
+help.alcohol.data<-help.alcohol.data%>%
+  group_by(Region)%>%
+  summarise_all(funs(mean(.,na.rm = TRUE)))
+
+help.alcohol.data
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+
+binnable.alcohol.data <- gather(help.alcohol.data, Alcohol.Types, Amount, 3:6 )
+binnable.alcohol.data<- select(binnable.alcohol.data, Region,Alcohol.Types, Amount)
+binnable.alcohol.data
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+
+theme_set(theme_classic())
+
+happ.histo<- ggplot(binnable.alcohol.data, aes(Region, Amount))
+
+happ.histo + geom_bar(aes(fill=Alcohol.Types), position = "stack", stat="identity")+
+  theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
+  labs(title="Which alcoholic drinks people drink most across regions",
+       x="Region",
+       y="Alcohol Consumption")
+
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+help.pisa.data<- select(master.data, Region, 12:15)
+
+help.pisa.data<-help.pisa.data%>%
+  group_by(Region)%>%
+  summarise_all(funs(mean(.,na.rm = TRUE)))
+
+help.pisa.data
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+
+binnable.pisa.data <- gather(help.pisa.data, PISA.Disciplines, Amount, 2:4 )
+binnable.pisa.data<- select(binnable.pisa.data, Region,PISA.Disciplines, Amount)
+binnable.pisa.data
+
+```
+
+```{r eval=FALSE, echo=TRUE}
+
+theme_set(theme_classic())
+
+happ.histo<- ggplot(binnable.pisa.data, aes(Region, Amount))
+
+happ.histo + geom_bar(aes(fill=PISA.Disciplines), position = "stack", stat="identity")+
+  theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
+  labs(title="What students are best at across regions",
+       x="Region",
+       y="PISA Performance")
 
 
 ```
