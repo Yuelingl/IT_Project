@@ -40,7 +40,7 @@ data
 -- Select relevant columns for correlation
 
 ```{r eval=TRUE, echo=TRUE}
-corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, contains("PISA"))
+corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, contains("PISA"))
 
 corr_data
 
@@ -50,8 +50,8 @@ corr_data
 
 ```{r eval=TRUE, echo=TRUE}
 
-summary(cor(corr_data[,2:17]))
-corrplot(cor(corr_data[,2:17]))
+summary(cor(corr_data[,2:17], use = "pairwise.complete.obs"))
+corrplot(cor(corr_data[,2:17], use = "pairwise.complete.obs"))
 
 
 ```
