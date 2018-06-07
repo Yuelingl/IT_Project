@@ -37,23 +37,14 @@ dfAlcohol <- read.csv("../../data/clean_data/alcohol_data.csv", stringsAsFactors
 dfHappiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
 ```
 
-## Create Maps
+### Adapt Data to ggplot2-World Map {.tabset .tabset-fade}
 
-### Adapt Data to ggplot2-World Map
-
+#### World Data
 
 ```{r eval=TRUE, echo=TRUE}
 WorldData <- ggplot2::map_data('world')
 WorldData <- dplyr::filter(WorldData, region != "Antarctica")
 WorldData <- ggplot2::fortify(WorldData)
-
-names(dfAlcohol)[1] <- "region"
-ind <- which(dfAlcohol$region=="Russian Federation", arr.in=TRUE)
-dfAlcohol$region[ind] <- "Russia"
-ind <- which(dfAlcohol$region=="United Kingdom", arr.in=TRUE)
-dfAlcohol$region[ind] <- "UK"
-ind <- which(dfAlcohol$region=="United States", arr.in=TRUE)
-dfAlcohol$region[ind] <- "USA"
 
 ind <- which(WorldData$region=="Trinidad", arr.in=TRUE)
 for (country in ind) {
@@ -63,7 +54,25 @@ ind <- which(WorldData$region=="Tobago", arr.in=TRUE)
 for (country in ind) {
   WorldData$region[ind] <- "Trinidad and Tobago"
 }
+WorldData
+```
 
+#### Alcohol Study
+
+```{r eval=TRUE, echo=TRUE}
+names(dfAlcohol)[1] <- "region"
+ind <- which(dfAlcohol$region=="Russian Federation", arr.in=TRUE)
+dfAlcohol$region[ind] <- "Russia"
+ind <- which(dfAlcohol$region=="United Kingdom", arr.in=TRUE)
+dfAlcohol$region[ind] <- "UK"
+ind <- which(dfAlcohol$region=="United States", arr.in=TRUE)
+dfAlcohol$region[ind] <- "USA"
+dfAlcohol
+```
+
+#### Happiness Record
+
+```{r eval=TRUE, echo=TRUE}
 names(dfHappiness)[1] <- "region"
 ind <- which(dfHappiness$region=="Russian Federation", arr.in=TRUE)
 dfHappiness$region[ind] <- "Russia"
@@ -71,7 +80,12 @@ ind <- which(dfHappiness$region=="United Kingdom", arr.in=TRUE)
 dfHappiness$region[ind] <- "UK"
 ind <- which(dfHappiness$region=="United States", arr.in=TRUE)
 dfHappiness$region[ind] <- "USA"
+dfHappiness
+```
 
+#### PISA-Study
+
+```{r eval=TRUE, echo=TRUE}
 names(dfPisa)[1] <- "region"
 ind <- which(dfPisa$region=="Russian Federation", arr.in=TRUE)
 dfPisa$region[ind] <- "Russia"
@@ -79,7 +93,12 @@ ind <- which(dfPisa$region=="United Kingdom", arr.in=TRUE)
 dfPisa$region[ind] <- "UK"
 ind <- which(dfPisa$region=="United States", arr.in=TRUE)
 dfPisa$region[ind] <- "USA"
+dfPisa
 ```
+
+###
+
+## Create Maps {.tabset .tabset-fade}
 
 ### World´s Alcohol consumption
 
@@ -164,3 +183,5 @@ p <- p + ggplot2::theme_bw()
 p <- p + ggplot2::theme(panel.border = ggplot2::element_blank())
 p
 ```
+
+##
