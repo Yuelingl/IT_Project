@@ -1,0 +1,141 @@
+---
+title: "Regression Analysis"
+output:
+  html_document:
+    df_print: paged
+    keep_md: yes
+    toc: yes
+---
+rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup
+
+#### Correlation and Regression Analysis
+
+Now we want to find out how our chosen datasets correlate with each other and, if yes, whether the correlations are of significance. Therefore we will firstly perform a correlation analysis between all relevant variables to get a grasp on their overall relationship. Following that we will pick out the strongest ones to examine in a linear regression analysis. 
+
+### Load Libraries 
+
+-- Load Library for reading CSV Files.
+-- Load tidyr-library
+-- Load dplyr-library
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+library(dplyr)
+library(ggplot2)
+library(corrplot)
+library(knitr)
+```
+### Read data
+
+This will be the data we will work with in the following analysis.
+```{r eval=FALSE, echo=FALSE}
+
+data <- read.csv("../data/master_data/master_data.csv")
+data
+```
+
+### Correlation Analysis
+
+-- Select relevant columns for correlation
+
+Since we are looking only at numeric variables during the correlation analysis we will sort out the columns "Country" and "Region". The standard error of the Happiness Score will, too, be unnecessary for our following process.
+Since our used correlation plot package does not support label parameters yet, instead using column names by default, we will rename the column names. For, whereas precise column names are suitable in a dataset, they are too long as axis lables in the corrplot, making the plot distorted and convoluted. 
+
+```{r eval=TRUE, echo=TRUE}
+corr_data <- dplyr::select(data, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, contains("PISA"))
+
+corr_data<-corr_data%>%
+  rename(Economy=Economy.GDP.per.Capita)%>%
+  rename(Health=Health.Life.Expectancy)%>%
+  rename(Corruption=Trust.Government.Corruption)%>%
+  rename(Alc.All=Alcohol.Consumption.All.Types)%>%
+  rename(Math=PISA.Performance.Mean.Mathematics)%>%
+  rename(Reading=PISA.Performance.Mean.Reading)%>%
+  rename(Science=PISA.Performance.Mean.Science)%>%
+  rename(MeanPerf=PISA.Performance.Mean)
+
+```
+
+-- Perform Correlation
+
+```{r eval=TRUE, echo=TRUE}
+
+summary(cor(corr_data, use = "pairwise.complete.obs"))
+corrplot(cor(corr_data, use = "pairwise.complete.obs"), method="number",tl.cex = 0.7, number.digits = 2, number.cex = 0.6, addrect = 5)
+
+```
+
+--Interpretation
+
+Across datasets:
+The results suggest that Happiness and PISA performances correlate strongly, especially concerning Health and Life Expectancy. Furthermore, one can see that Alcohol Consumption seems to have a slight positive effect on PISA performances, too, with correlation coefficients at around 0.5.
+
+Happiness dataset:
+As already seen during descriptive analysis, countries with a high happiness score tend to value freedom the most (0.71)
+
+```{r eval=TRUE, echo=TRUE}
+
+pisa.alcohol.lm <- lm(PISA.Performance.Mean ~Beer + Wine+ Spirits+Other, data)
+summary(pisa.alcohol.lm)
+
+pisa.alcohol2.lm <- lm(PISA.Performance.Mean ~Alcohol.Consumption.All.Types, data)
+summary(pisa.alcohol2.lm)
+
+
+pisa.happiness.lm <- lm(PISA.Performance.Mean~Happiness.Score, data)
+summary(pisa.happiness.lm)
+
+happiness.alcohol.lm<-lm(Happiness.Score ~ Alcohol.Consumption.All.Types, data)
+summary(happiness.alcohol.lm)
+
+pisa.economy.lm <- lm(PISA.Performance.Mean ~ Economy.GDP.per.Capita , data)
+summary(pisa.economy.lm)
+
+
+```
+
+Interpretation:
+
+High levels of significance point to positive relationships between our chosen variables:
+
+-- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.
+-- Alcohol consumption in general is a significant predictor variable for the average PISA performance.
+-- The Happiness Score is a significant predictor for the average PISA performance.
+
+However one has to consider the low levels of R-square in all of the aforementioned regressions. This means that, although the low P values indicate a real relationship between predictors and response variables, the precision of the prediction is not very high on all accounts.
+This can be led to the fact, that our data is very processed, on the one hand Happiness Score being a highly calculated variable and on the other having average scores for entire countries, rather than single oberservation variables. 
+
+
+Lack of significance for the relationship between Happiness Score and Alcohol Consumption. 
+
+
+
+
+```{r eval=TRUE, echo=TRUE}
+
+plotRegression <- function(para){
+  ggplot(para$model, aes_string(x=names(para$model)[2], y=names(para$model)[1]))+
+    geom_point(shape=1, size=3, color="#DF01A5")+
+    stat_smooth(method="lm", col="blue")+
+    labs(title=paste("R2=", signif(summary(para)$r.squared,5),
+                     "Intercept=", signif(para$coef[[1]],5),
+                     "Slope=", signif(para$coef[[2]],5),
+                     "P=",signif(summary(para)$coef[2,4],5)))
+}
+
+plot1<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, data))
+
+plot3<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, data))
+plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
+
+plot1
+plot3
+plot6
+```
+
