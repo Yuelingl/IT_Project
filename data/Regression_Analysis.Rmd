@@ -2,19 +2,21 @@
 title: "Regression Analysis"
 output:
   html_document:
-    fig_width: 10
-    fig_height: 10
     df_print: paged
     keep_md: yes
     toc: yes
 ---
-> rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Setup
+
+#### Correlation and Regression Analysis
+
+Now we want to find out how our chosen datasets correlate with each other and, if yes, whether the correlations are of significance. Therefore we will firstly perform a correlation analysis between all relevant variables to get a grasp on their overall relationship. Following that we will pick out the strongest ones to examine in a linear regression analysis. 
 
 ### Load Libraries 
 
@@ -31,18 +33,32 @@ library(knitr)
 ```
 ### Read data
 
-```{r eval=FALSE, echo=TRUE}
+This will be the data we will work with in the following analysis.
+```{r eval=FALSE, echo=FALSE}
 
 data <- read.csv("../data/master_data/master_data.csv")
 data
 ```
 
+### Correlation Analysis
+
 -- Select relevant columns for correlation
 
-```{r eval=TRUE, echo=TRUE}
-corr_data <- dplyr::select(data, Country, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, contains("PISA"))
+Since we are looking only at numeric variables during the correlation analysis we will sort out the columns "Country" and "Region". The standard error of the Happiness Score will, too, be unnecessary for our following process.
+Since our used correlation plot package does not support label parameters yet, instead using column names by default, we will rename the column names. For, whereas precise column names are suitable in a dataset, they are too long as axis lables in the corrplot, making the plot distorted and convoluted. 
 
-corr_data
+```{r eval=TRUE, echo=TRUE}
+corr_data <- dplyr::select(data, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, contains("PISA"))
+
+corr_data<-corr_data%>%
+  rename(Economy=Economy.GDP.per.Capita)%>%
+  rename(Health=Health.Life.Expectancy)%>%
+  rename(Corruption=Trust.Government.Corruption)%>%
+  rename(Alc.All=Alcohol.Consumption.All.Types)%>%
+  rename(Math=PISA.Performance.Mean.Mathematics)%>%
+  rename(Reading=PISA.Performance.Mean.Reading)%>%
+  rename(Science=PISA.Performance.Mean.Science)%>%
+  rename(MeanPerf=PISA.Performance.Mean)
 
 ```
 
@@ -50,15 +66,18 @@ corr_data
 
 ```{r eval=TRUE, echo=TRUE}
 
-summary(cor(corr_data[,2:17], use = "pairwise.complete.obs"))
-corrplot(cor(corr_data[,2:17], use = "pairwise.complete.obs"))
-
+summary(cor(corr_data, use = "pairwise.complete.obs"))
+corrplot(cor(corr_data, use = "pairwise.complete.obs"), method="number",tl.cex = 0.7, number.digits = 2, number.cex = 0.6, addrect = 5)
 
 ```
 
-Interpretation
+--Interpretation
 
+Across datasets:
+The results suggest that Happiness and PISA performances correlate strongly, especially concerning Health and Life Expectancy. Furthermore, one can see that Alcohol Consumption seems to have a slight positive effect on PISA performances, too, with correlation coefficients at around 0.5.
 
+Happiness dataset:
+As already seen during descriptive analysis, countries with a high happiness score tend to value freedom the most (0.71)
 
 ```{r eval=TRUE, echo=TRUE}
 
