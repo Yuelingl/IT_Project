@@ -24,7 +24,7 @@ Now we want to find out how our chosen datasets correlate with each other and, i
 -- Load tidyr-library
 -- Load dplyr-library
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=FALSE}
 library(csvread)
 library(dplyr)
 library(ggplot2)
@@ -34,10 +34,10 @@ library(knitr)
 ### Read data
 
 This will be the data we will work with in the following analysis.
-```{r eval=FALSE, echo=FALSE}
+```{r eval=TRUE, echo=FALSE}
 
-data <- read.csv("../data/master_data/master_data.csv")
-data
+dfData.Master <- read.csv("../data/master_data/master_data.csv")
+dfData.Master
 ```
 
 ### Correlation Analysis
@@ -48,9 +48,9 @@ Since we are looking only at numeric variables during the correlation analysis w
 Since our used correlation plot package does not support label parameters yet, instead using column names by default, we will rename the column names. For, whereas precise column names are suitable in a dataset, they are too long as axis lables in the corrplot, making the plot distorted and convoluted. 
 
 ```{r eval=TRUE, echo=TRUE}
-corr_data <- dplyr::select(data, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, contains("PISA"))
+dfData.Master.Corr <- dplyr::select(dfData.Master, Happiness.Score, Economy.GDP.per.Capita, Family, Health.Life.Expectancy,Freedom, Trust.Government.Corruption, Generosity, Dystopia.Residual,Alcohol.Consumption.All.Types,Beer, Wine, Spirits, Other, dplyr::contains("PISA"))
 
-corr_data<-corr_data%>%
+dfData.Master.Corr<-dfData.Master.Corr%>%
   rename(Economy=Economy.GDP.per.Capita)%>%
   rename(Health=Health.Life.Expectancy)%>%
   rename(Corruption=Trust.Government.Corruption)%>%
@@ -66,8 +66,8 @@ corr_data<-corr_data%>%
 
 ```{r eval=TRUE, echo=TRUE}
 
-summary(cor(corr_data, use = "pairwise.complete.obs"))
-corrplot(cor(corr_data, use = "pairwise.complete.obs"), method="number",tl.cex = 0.7, number.digits = 2, number.cex = 0.6, addrect = 5)
+summary(cor(dfData.Master.Corr, use = "pairwise.complete.obs"))
+corrplot::corrplot(cor(dfData.Master.Corr, use = "pairwise.complete.obs"), method="number",tl.cex = 0.7, number.digits = 2, number.cex = 0.6, addrect = 5)
 
 ```
 
@@ -81,21 +81,21 @@ As already seen during descriptive analysis, countries with a high happiness sco
 
 ```{r eval=TRUE, echo=TRUE}
 
-pisa.alcohol.lm <- lm(PISA.Performance.Mean ~Beer + Wine+ Spirits+Other, data)
-summary(pisa.alcohol.lm)
+lmPISA.Alcohol.Types <- lm(PISA.Performance.Mean ~Beer + Wine+ Spirits+Other, dfData.Master)
+summary(lmPISA.Alcohol.Types)
 
-pisa.alcohol2.lm <- lm(PISA.Performance.Mean ~Alcohol.Consumption.All.Types, data)
-summary(pisa.alcohol2.lm)
+lmPISA.Alcohol.Main <- lm(PISA.Performance.Mean ~Alcohol.Consumption.All.Types, dfData.Master)
+summary(lmPISA.Alcohol.Main)
 
 
-pisa.happiness.lm <- lm(PISA.Performance.Mean~Happiness.Score, data)
-summary(pisa.happiness.lm)
+lmPISA.Happiness <- lm(PISA.Performance.Mean~Happiness.Score, dfData.Master)
+summary(lmPISA.Happiness)
 
-happiness.alcohol.lm<-lm(Happiness.Score ~ Alcohol.Consumption.All.Types, data)
-summary(happiness.alcohol.lm)
+lmHappiness.Alcohol <-lm(Happiness.Score ~ Alcohol.Consumption.All.Types, dfData.Master)
+summary(lmHappiness.Alcohol)
 
-pisa.economy.lm <- lm(PISA.Performance.Mean ~ Economy.GDP.per.Capita , data)
-summary(pisa.economy.lm)
+lmPISA.Economy <- lm(PISA.Performance.Mean ~ Economy.GDP.per.Capita , dfData.Master)
+summary(lmPISA.Economy)
 
 
 ```
@@ -119,23 +119,23 @@ Lack of significance for the relationship between Happiness Score and Alcohol Co
 
 ```{r eval=TRUE, echo=TRUE}
 
-plotRegression <- function(para){
-  ggplot(para$model, aes_string(x=names(para$model)[2], y=names(para$model)[1]))+
+plotRegression <- function(data){
+  ggplot(data$model, aes_string(x=names(data$model)[2], y=names(data$model)[1]))+
     geom_point(shape=1, size=3, color="#DF01A5")+
     stat_smooth(method="lm", col="blue")+
-    labs(title=paste("R2=", signif(summary(para)$r.squared,5),
-                     "Intercept=", signif(para$coef[[1]],5),
-                     "Slope=", signif(para$coef[[2]],5),
-                     "P=",signif(summary(para)$coef[2,4],5)))
+    labs(title=paste("R2=", signif(summary(data)$r.squared,5),
+                     "Intercept=", signif(data$coef[[1]],5),
+                     "Slope=", signif(data$coef[[2]],5),
+                     "P=",signif(summary(data)$coef[2,4],5)))
 }
 
-plot1<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, data))
+pHappiness.Alcohol<-plotRegression(lm(Happiness.Score~Alcohol.Consumption.All.Types, dfData.Master))
 
-plot3<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, data))
-plot6<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, data))
+pPISA.Alcohol<-plotRegression(lm(PISA.Performance.Mean~Alcohol.Consumption.All.Types, dfData.Master))
+pPISA.Happiness<-plotRegression(lm(PISA.Performance.Mean~Happiness.Score, dfData.Master))
 
-plot1
-plot3
-plot6
+pHappiness.Alcohol
+pPISA.Alcohol
+pPISA.Happiness
 ```
 

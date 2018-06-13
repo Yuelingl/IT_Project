@@ -17,6 +17,8 @@ to use it for comparing with the World Happiness Record and the GISAH Study.
   
 The cleaned Data should contain the Scores for the different PISA Scales for the year 2015 in different columns.
 
+## Setup
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
