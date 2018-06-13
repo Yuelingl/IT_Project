@@ -9,15 +9,10 @@ output:
     code_folding: hide
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.height = 7, fig.width = 10)
-```
 
+### Setup
 
-## Setup
-
-### Load Libraries
+#### Load Libraries
 
 -- Load Librarys
 
@@ -28,7 +23,7 @@ library(maps)
 library(csvread)
 ```
 
-### Load CSV
+#### Load CSV
 
 -- Load CSV
 
@@ -38,9 +33,11 @@ dfData.Alcohol <- read.csv("../../data/clean_data/alcohol_data.csv", stringsAsFa
 dfData.Happiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
 ```
 
-### Adapt Data to ggplot2-World Map {.tabset .tabset-fade}
+### Adapt Data
 
-#### World Data
+#### Adapt Data to ggplot2-World Map {.tabset .tabset-fade}
+
+##### World Data
 
 ```{r eval=TRUE, echo=TRUE}
 dfData.World <- ggplot2::map_data('world')
@@ -58,7 +55,7 @@ for (country in ind) {
 dfData.World
 ```
 
-#### Alcohol Study
+##### Alcohol Study
 
 ```{r eval=TRUE, echo=TRUE}
 dfData.Alcohol
@@ -72,7 +69,7 @@ dfData.Alcohol$region[ind] <- "USA"
 dfData.Alcohol
 ```
 
-#### Happiness Record
+##### Happiness Record
 
 ```{r eval=TRUE, echo=TRUE}
 names(dfData.Happiness)[1] <- "region"
@@ -85,7 +82,7 @@ dfData.Happiness$region[ind] <- "USA"
 dfData.Happiness
 ```
 
-#### PISA-Study
+##### PISA-Study
 
 ```{r eval=TRUE, echo=TRUE}
 names(dfData.PISA)[1] <- "region"
@@ -98,11 +95,11 @@ dfData.PISA$region[ind] <- "USA"
 dfData.PISA
 ```
 
-###
+####
 
-## Create Maps {.tabset .tabset-fade}
+### Create Maps {.tabset .tabset-fade}
 
-### World´s Alcohol consumption
+#### World´s Alcohol consumption
 
 -- Displays the World´s Alcohol Consumption in pure litres of Alcohol  
 -- White countries have not participated in the study
@@ -130,7 +127,7 @@ p <- p + ggplot2::theme(panel.border = ggplot2::element_blank())
 p
 ```
 
-### World´s Happiness Record
+#### World´s Happiness Record
 
 -- Displays the World´s Happiness record  
 -- White countries have not participated in the study
@@ -158,7 +155,7 @@ p <- p + ggplot2::theme(panel.border = ggplot2::element_blank())
 p
 ```
 
-### PISA-Study Map
+#### PISA-Study Map
 
 -- Displays Mean Performance of the PISA-Study  
 -- White countries have not participated in the study
@@ -186,4 +183,4 @@ p <- p + ggplot2::theme(panel.border = ggplot2::element_blank())
 p
 ```
 
-##
+###

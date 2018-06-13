@@ -10,13 +10,9 @@ output:
 ---
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+### Setup
 
-## Setup
-
-### Load Librarys
+#### Load Librarys
 
 -- Load Library for reading CSV Files.
 -- Load tidyr-library
@@ -29,7 +25,7 @@ library(dplyr)
 ```
 
 
-### Read cleaned CSV Files
+#### Read cleaned CSV Files
 
 -- Read CSV File "pisa_data.csv"  
 -- Read CSV File "alcohol_data.csv"  
@@ -45,9 +41,9 @@ dfData.Alcohol
 dfData.Happiness
 ```
 
-## Merge and Arrange Data
+### Merge and Arrange Data
 
-### Merge Data
+#### Merge Data
 
 -- Load own R-Functions for Multi-Merge  
 -- Merge the three Data Sets
@@ -59,7 +55,7 @@ dfData.Master <- multiMerge(lsDF = lsData, bFullJoin = FALSE)
 dfData.Master 
 ```
 
-### Arrange Data
+#### Arrange Data
 
 -- drop not often colums to minimze master data
 
@@ -80,7 +76,7 @@ dfData.Master.min <- dfData.Master[ , !(names(dfData.Master) %in% drops)]
 dfData.Master.min
 ```
 
-### Save CSV-Files
+#### Save CSV-Files
 
 -- Save CSV-Files
 

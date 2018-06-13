@@ -10,17 +10,14 @@ output:
 ---
 rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-## Setup
-
-#### Correlation and Regression Analysis
+## Correlation and Regression Analysis
 
 Now we want to find out how our chosen datasets correlate with each other and, if yes, whether the correlations are of significance. Therefore we will firstly perform a correlation analysis between all relevant variables to get a grasp on their overall relationship. Following that we will pick out the strongest ones to examine in a linear regression analysis. 
 
-### Load Libraries 
+### Setup
+
+#### Load Libraries 
 
 -- Load Library for reading CSV Files.
 -- Load tidyr-library
@@ -33,7 +30,7 @@ library(ggplot2)
 library(corrplot)
 library(knitr)
 ```
-### Read data
+#### Read data
 
 This will be the data we will work with in the following analysis.
 ```{r eval=TRUE, echo=FALSE}
@@ -73,7 +70,7 @@ corrplot::corrplot(cor(dfData.Master.Corr, use = "pairwise.complete.obs"), metho
 
 ```
 
---Interpretation
+#### Interpretation
 
 Across datasets:
 The results suggest that Happiness and PISA performances correlate strongly, especially concerning Health and Life Expectancy. Furthermore, one can see that Alcohol Consumption seems to have a slight positive effect on PISA performances, too, with correlation coefficients at around 0.5.
@@ -101,23 +98,7 @@ summary(lmPISA.Economy)
 
 
 ```
-
-Interpretation:
-
-High levels of significance point to positive relationships between our chosen variables:
-
--- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.
--- Alcohol consumption in general is a significant predictor variable for the average PISA performance.
--- The Happiness Score is a significant predictor for the average PISA performance.
-
-However one has to consider the low levels of R-square in all of the aforementioned regressions. This means that, although the low P values indicate a real relationship between predictors and response variables, the precision of the prediction is not very high on all accounts.
-This can be led to the fact, that our data is very processed, on the one hand Happiness Score being a highly calculated variable and on the other having average scores for entire countries, rather than single oberservation variables. 
-
-
-Lack of significance for the relationship between Happiness Score and Alcohol Consumption. 
-
-
-
+### Regression Analysis
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -140,4 +121,19 @@ pHappiness.Alcohol
 pPISA.Alcohol
 pPISA.Happiness
 ```
+
+#### Interpretation
+
+High levels of significance point to positive relationships between our chosen variables:
+
+-- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.
+-- Alcohol consumption in general is a significant predictor variable for the average PISA performance.
+-- The Happiness Score is a significant predictor for the average PISA performance.
+
+However one has to consider the low levels of R-square in all of the aforementioned regressions. This means that, although the low P values indicate a real relationship between predictors and response variables, the precision of the prediction is not very high on all accounts.
+This can be led to the fact, that our data is very processed, on the one hand Happiness Score being a highly calculated variable and on the other having average scores for entire countries, rather than single oberservation variables. 
+
+
+Lack of significance for the relationship between Happiness Score and Alcohol Consumption. 
+
 

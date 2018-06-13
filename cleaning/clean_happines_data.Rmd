@@ -4,12 +4,8 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
 ---
-
-## Introduction
+## Clean Happiness Record
 
 ### Goal
 
@@ -17,10 +13,9 @@ The Goal of this File is to clean the Data of the World Happiness Report 2015 in
   
 The cleaned Data should contain the Happiness Score, Standard Error and the extend to which the different factors (Family, Health, ...) influenced the Happiness Score of the certain countries.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-### Load Librarys
+### Setup
+
+#### Load Librarys
 
 -- Load Library for reading CSV Files.
 
@@ -28,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(csvread)
 ```
 
-### Read raw data
+#### Read raw data
 
 -- Read CSV File "world_happiness_report_2015.csv"  
 
@@ -37,7 +32,7 @@ dfHappiness.raw <- read.csv(file = "../data/raw_data/world_happiness_report_2015
 dfHappiness.raw
 ```
 
-## Clean Data
+### Clean Data
 
 -- Delete Column, as it will be incorrect, when later deleting countries
 

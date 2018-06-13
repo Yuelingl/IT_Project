@@ -1,0 +1,51 @@
+---
+title: "IT Project"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 7, fig.width = 10)
+```
+
+# Clean Data {.tabset .tabset-fade}
+
+```{r child = 'cleaning/clean_pisa_data.rmd'}
+```
+
+
+```{r child = 'cleaning/clean_happines_data.rmd'}
+```
+
+
+```{r child = 'cleaning/clean_alcohol_data.rmd'}
+```
+
+# Merge Data
+```{r child = 'data/Merge_Data.rmd'}
+```
+
+# The Data
+
+## Maps
+
+```{r child = 'descriptive/maps/maps.rmd'}
+```
+
+## Regions
+
+```{r child = 'data/Descriptive_Analysis_regions.rmd'}
+```
+
+## Top/Bottom Tenm
+
+```{r child = 'descriptive/top_ten/top_ten.Rmd'}
+```
+
+# Analysis
+
+```{r child = 'data/Regression_Analysis.rmd'}
+```

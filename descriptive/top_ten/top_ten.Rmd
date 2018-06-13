@@ -10,13 +10,10 @@ output:
 ---
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-## Setup
+### Setup
 
-### Load Librarys
+#### Load Librarys
 
 -- Load required librarys
 
@@ -27,7 +24,7 @@ require(gridExtra)
 ```
 
 
-### Read cleaned CSV Files
+#### Read cleaned CSV Files
 
 -- Read CSV File "pisa_data.csv"  
 
@@ -35,11 +32,11 @@ require(gridExtra)
 dfData.master <- read.csv("../../data/master_data/master_data.min.csv")
 ```
 
-## Top Ten Countries in different Studies 2015 {.tabset .tabset-fade}
+### Top Ten Countries in different Studies 2015 {.tabset .tabset-fade}
 
 -- This Top-Ten-Lists contain the countries which participated in all 3 studies (Happiness Record, PISA-Study, Alcohol Consumption Study)
 
-### Happiness Score
+#### Happiness Score
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -79,7 +76,7 @@ dfData.ordered.low <- NULL
 ```
 
 
-### GDP
+#### GDP
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -115,7 +112,7 @@ dfData.ordered.high <- NULL
 dfData.ordered.low <- NULL
 ```
 
-### Health Life Expectancy
+#### Health Life Expectancy
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -152,7 +149,7 @@ dfData.ordered.low <- NULL
 
 ```
 
-### Alcohol Consumption
+#### Alcohol Consumption
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -189,7 +186,7 @@ dfData.ordered.low <- NULL
 
 ```
 
-### PISA Mean Performance
+#### PISA Mean Performance
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -226,7 +223,7 @@ dfData.ordered.low <- NULL
 
 ```
 
-### PISA Mean Performance Mathematics
+#### PISA Mean Performance Mathematics
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -263,7 +260,7 @@ dfData.ordered.low <- NULL
 
 ```
 
-### PISA Mean Performance Reading
+#### PISA Mean Performance Reading
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -300,7 +297,7 @@ dfData.ordered.low <- NULL
 
 ```
 
-### PISA Mean Performance Science
+#### PISA Mean Performance Science
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -337,4 +334,4 @@ dfData.ordered.low <- NULL
 
 ```
 
-##
+###

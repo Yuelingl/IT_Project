@@ -9,12 +9,10 @@ output:
     code_folding: hide
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-## Setup
 
-### Load Librarys
+### Setup
+
+#### Load Librarys
 
 -- Load Library for reading CSV Files.
 -- Load tidyr-library
@@ -29,14 +27,14 @@ library(ggthemes)
 
 ```
 
-### Read Data
+#### Read Data
 ```{r eval=FALSE, echo=TRUE}
 master.data <- read.csv("../data/master_data/master_data.csv")
 master.data
 
 ```
 
-## Select relevant columns for regional analysis
+### Select relevant columns for regional analysis
 
 Too many countries for plot analysis, therefore we take the respective regions as categories
 

@@ -4,24 +4,16 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
 ---
+## Clean GISAH Study
 
-###Introduction
-
-tba
-
-##Goal
+### Goal
 
 tba
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+### Setup
 
-### Load Libraries
+#### Load Libraries
 
 -- Load Library for reading CSV Files.
 
@@ -30,7 +22,7 @@ library(csvread)
 library(tidyr)
 ```
 
-### Read raw data
+#### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
 dfAlcohol.raw <- read.csv(file ="../data/raw_data/alcohol_consumption.csv", header = TRUE)
@@ -50,8 +42,8 @@ number of rows:
 nrow(dfAlcohol.raw)
 ```
 
-###Clean raw data
--- Renaming columns
+### Clean raw data
+-- Renaming columns  
 -- Omit superfluous columns: X1: "Datasource", Years 2016 & 2010-2014
 
 ```{r eval=TRUE, echo=TRUE}
