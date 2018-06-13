@@ -6,6 +6,7 @@ output:
     keep_md: yes
     toc: yes
     toc_float: yes
+    code_folding: hide
 ---
 
 ## Introduction
@@ -16,6 +17,8 @@ The Goal of this File is to clean the Data of the PISA (Programm for Internation
 to use it for comparing with the World Happiness Record and the GISAH Study.
   
 The cleaned Data should contain the Scores for the different PISA Scales for the year 2015 in different columns.
+
+## Setup
 
 
 

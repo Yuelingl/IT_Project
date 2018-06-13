@@ -6,6 +6,7 @@ output:
     keep_md: yes
     toc: yes
     toc_float: yes
+    code_folding: hide
 ---
 
 ###Introduction

@@ -5,6 +5,8 @@ output:
     df_print: paged
     keep_md: yes
     toc: yes
+    code_folding: hide
+    toc_float: yes
 ---
 rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
