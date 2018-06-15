@@ -4,11 +4,46 @@ output:
   html_document:
     df_print: paged
     toc: yes
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.height = 7, fig.width = 10)
+```
+
+# Setup {.tabset .tabset-fade}
+
+## Install Packages 
+
+-- Install Packages if necessary
+
+```{r eval=FALSE, echo=TRUE}
+if(!require(csvread)) install.packages("csvread", repos = "http://cran.us.r-project.org")
+if(!require(tidyr)) install.packages("tidyr", repos = "http://cran.us.r-project.org")
+if(!require(dplyr)) install.packages("dplyr", repos = "http://cran.us.r-project.org")
+if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+if(!require(ggthemes)) install.packages("ggthemes",repos = "http://cran.us.r-project.org")
+if(!require(corrplot)) install.packages("corrplot", repos = "http://cran.us.r-project.org")
+if(!require(knitr)) install.packages("knitr", repos = "http://cran.us.r-project.org")
+if(!require(gridExtra)) install.packages("gridExtra", repos = "http://cran.us.r-project.org")
+if(!require(maps)) install.packages("maps",repos = "http://cran.us.r-project.org")
+```
+
+## Load Libraries
+
+-- Load needed libraries
+
+```{r eval=TRUE, echo=TRUE}
+library(csvread)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+library(corrplot)
+library(knitr)
+library(gridExtra)
+library(maps)
 ```
 
 # Clean Data {.tabset .tabset-fade}

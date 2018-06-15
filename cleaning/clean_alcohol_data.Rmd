@@ -13,15 +13,6 @@ tba
 
 ### Setup
 
-#### Load Libraries
-
--- Load Library for reading CSV Files.
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-```
-
 #### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}

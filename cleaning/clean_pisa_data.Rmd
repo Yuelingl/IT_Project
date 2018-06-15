@@ -18,16 +18,6 @@ The cleaned Data should contain the Scores for the different PISA Scales for the
 
 ### Setup
 
-#### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-```
-
 
 #### Read PISA - CSV File
 

@@ -4,24 +4,11 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
 ---
 
 
 ### Setup
 
-#### Load Libraries
-
--- Load Librarys
-
-```{r eval=FALSE, echo=TRUE}
-library(dplyr)
-library(ggplot2)
-library(maps)
-library(csvread)
-```
 
 #### Load CSV
 

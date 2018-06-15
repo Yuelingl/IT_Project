@@ -4,25 +4,10 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
----
 ---
 
 ### Setup
 
-#### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
--- Load dplyr-library
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-library(dplyr)
-```
 
 
 #### Read cleaned CSV Files

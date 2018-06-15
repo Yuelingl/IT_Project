@@ -4,24 +4,19 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
+    code_folding: show
 ---
+## Clean GISAH Study
 
-###Introduction
-
-tba
-
-##Goal
+### Goal
 
 tba
 
+### Setup
 
+#### Load Libraries
 
-### Load Libraries
-
--- Load Library for reading CSV Files.
+-- Load Library for reading CSV Files
 
 
 ```r
@@ -29,7 +24,7 @@ library(csvread)
 library(tidyr)
 ```
 
-### Read raw data
+#### Read raw data
 
 
 ```r
@@ -64,8 +59,8 @@ nrow(dfAlcohol.raw)
 ## [1] 955
 ```
 
-###Clean raw data
--- Renaming columns
+### Clean raw data
+-- Renaming columns  
 -- Omit superfluous columns: X1: "Datasource", Years 2016 & 2010-2014
 
 

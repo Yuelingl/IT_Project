@@ -15,14 +15,6 @@ The cleaned Data should contain the Happiness Score, Standard Error and the exte
 
 ### Setup
 
-#### Load Librarys
-
--- Load Library for reading CSV Files.
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-```
-
 #### Read raw data
 
 -- Read CSV File "world_happiness_report_2015.csv"  

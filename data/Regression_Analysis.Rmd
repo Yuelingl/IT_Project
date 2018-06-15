@@ -4,9 +4,6 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    code_folding: hide
-    toc_float: yes
 ---
 rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
 
@@ -17,19 +14,6 @@ Now we want to find out how our chosen datasets correlate with each other and, i
 
 ### Setup
 
-#### Load Libraries 
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
--- Load dplyr-library
-
-```{r eval=TRUE, echo=FALSE}
-library(csvread)
-library(dplyr)
-library(ggplot2)
-library(corrplot)
-library(knitr)
-```
 #### Read data
 
 This will be the data we will work with in the following analysis.

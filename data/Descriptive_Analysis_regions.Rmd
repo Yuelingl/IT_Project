@@ -4,31 +4,13 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
 ---
 
 
 ### Setup
 
-#### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
--- Load dplyr-library
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(ggthemes)
-
-```
-
 #### Read Data
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 master.data <- read.csv("../data/master_data/master_data.csv")
 master.data
 
@@ -38,7 +20,7 @@ master.data
 
 Too many countries for plot analysis, therefore we take the respective regions as categories
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 region.data <- select(master.data, -Country, Happiness.Score.Standard.Error)
 region.data 
@@ -49,7 +31,7 @@ region.data
 
 How the Happiness Score is made up
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
@@ -63,7 +45,7 @@ happ.box + geom_boxplot(varwidth = T,   fill="plum") +
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
@@ -77,7 +59,7 @@ happ.box + geom_boxplot(varwidth = T,   fill="goldenrod2") +
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
@@ -92,7 +74,7 @@ happ.box + geom_boxplot(varwidth = T,   fill="aquamarine4") +
 ```
 
 Preparing the dataset for binning
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 help.happiness.data<- select(master.data, Region,Happiness.Score, 5:11)
 
 help.happiness.data<-help.happiness.data%>%
@@ -103,7 +85,7 @@ help.happiness.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 binnable.happiness.data <- gather(help.happiness.data, Happiness.Reasons, Amount, 3:9 )
 binnable.happiness.data<- select(binnable.happiness.data, Region,Happiness.Reasons, Amount)
@@ -111,7 +93,7 @@ binnable.happiness.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
@@ -126,7 +108,7 @@ happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "stack", stat="ide
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 help.alcohol.data<- select(master.data, Region, 16:20)
 
 help.alcohol.data<-help.alcohol.data%>%
@@ -137,7 +119,7 @@ help.alcohol.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 binnable.alcohol.data <- gather(help.alcohol.data, Alcohol.Types, Amount, 3:6 )
 binnable.alcohol.data<- select(binnable.alcohol.data, Region,Alcohol.Types, Amount)
@@ -145,7 +127,7 @@ binnable.alcohol.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
@@ -160,7 +142,7 @@ happ.histo + geom_bar(aes(fill=Alcohol.Types), position = "stack", stat="identit
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 help.pisa.data<- select(master.data, Region, 12:15)
 
 help.pisa.data<-help.pisa.data%>%
@@ -171,7 +153,7 @@ help.pisa.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 binnable.pisa.data <- gather(help.pisa.data, PISA.Disciplines, Amount, 2:4 )
 binnable.pisa.data<- select(binnable.pisa.data, Region,PISA.Disciplines, Amount)
@@ -179,7 +161,7 @@ binnable.pisa.data
 
 ```
 
-```{r eval=FALSE, echo=TRUE}
+```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 

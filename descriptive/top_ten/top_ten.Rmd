@@ -4,24 +4,10 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
----
 ---
 
 
 ### Setup
-
-#### Load Librarys
-
--- Load required librarys
-
-```{r eval=FALSE, echo=TRUE}
-require(csvread)
-require(ggplot2)
-require(gridExtra)
-```
 
 
 #### Read cleaned CSV Files
