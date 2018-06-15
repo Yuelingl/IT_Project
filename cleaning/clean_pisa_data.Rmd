@@ -7,27 +7,9 @@ output:
 ---
 ## Clean PISA Study
 
-### Introduction
-
 ### Setup
 
-<<<<<<< HEAD
-
-#### Read PISA - CSV File
-
--- Read CSV File "pisa_data.csv"  
--- Gets PISA Data for cleaning
-
-=======
-#### Load Librarys
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-```
-
 #### Read raw data
->>>>>>> Commenting
 
 ```{r eval=TRUE, echo=TRUE}
 dfPISA.raw <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE, dec = ".", stringsAsFactors = FALSE)

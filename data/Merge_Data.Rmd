@@ -8,8 +8,6 @@ output:
 
 ### Setup
 
-
-
 #### Read cleaned CSV Files
 
 -- Read CSV File "pisa_data.csv"  

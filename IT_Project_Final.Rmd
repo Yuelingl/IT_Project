@@ -77,7 +77,7 @@ The Goal of this file is to clean the data of each dataset, in order to compare 
 ```{r child = 'data/Descriptive_Analysis_regions.rmd'}
 ```
 
-## Top/Bottom Tenm
+## Top/Bottom Ten Countries
 
 ```{r child = 'descriptive/top_ten/top_ten.Rmd'}
 ```

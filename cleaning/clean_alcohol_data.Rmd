@@ -5,36 +5,14 @@ output:
     df_print: paged
     keep_md: yes
 ---
-## Clean GISAH Study
+## Clean GISAH Study (Alcohol Consumption)
 
 ### Setup
-
-<<<<<<< HEAD
-=======
-#### Load Libraries
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-```
-
->>>>>>> Commenting
 #### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
 dfAlcohol.raw <- read.csv(file ="../data/raw_data/alcohol_consumption.csv", header = TRUE)
 dfAlcohol.raw
-```
-Characterisics of raw data  
-number of columns:  
-
-```{r eval=TRUE, echo=TRUE}
-ncol(dfAlcohol.raw)
-```
-number of rows:  
-
-```{r eval=TRUE, echo=TRUE}
-nrow(dfAlcohol.raw)
 ```
 
 ### Clean data
@@ -111,12 +89,12 @@ levels(dfAlcohol.clean$Country)[ind] <- "Vietnam"
 
 ```
 
---Clearing out NAs
+--Clearing out NAs  
 ```{r eval=TRUE, echo=TRUE}
 dfAlcohol.clean <- subset(dfAlcohol.clean, !is.na(dfAlcohol.clean$Alcohol.Consumption.All.Types) & !is.na(dfAlcohol.clean$Beer) & !is.na(dfAlcohol.clean$Beer))
 dfAlcohol.clean
 ```
---Write into CSV
+--Write into CSV  
 
 ```{r eval=TRUE, echo=TRUE}
 write.csv(dfAlcohol.clean, file = "../data/clean_data/alcohol_data.csv",row.names=FALSE, na="", col.names = TRUE)

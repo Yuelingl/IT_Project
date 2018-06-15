@@ -9,29 +9,10 @@ output:
 
 ### Setup
 
-<<<<<<< HEAD
-=======
-#### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library  
--- Load dplyr-library  
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(ggthemes)
-
-```
-
->>>>>>> Commenting
 #### Read Data
 ```{r eval=TRUE, echo=TRUE}
 master.data <- read.csv("../data/master_data/master_data.csv")
 master.data
-
 ```
 
 ### Select relevant columns for regional analysis

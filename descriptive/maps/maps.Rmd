@@ -9,23 +9,9 @@ output:
 
 ### Setup
 
-<<<<<<< HEAD
-=======
-#### Load Libraries
+#### Load Data from CSV
 
--- Load Librarys  
-
-```{r eval=FALSE, echo=TRUE}
-library(dplyr)
-library(ggplot2)
-library(maps)
-library(csvread)
-```
->>>>>>> Commenting
-
-#### Load CSV
-
--- Load CSV  
+-- Load CSVf- files
 
 ```{r eval=TRUE, echo=TRUE}
 dfData.PISA <- read.csv("../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)

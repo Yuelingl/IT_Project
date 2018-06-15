@@ -9,15 +9,6 @@ output:
 
 ### Setup
 
-<<<<<<< HEAD
-=======
-#### Load Librarys
-
-```{r eval=FALSE, echo=TRUE}
-library(csvread)
-```
-
->>>>>>> Commenting
 #### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
