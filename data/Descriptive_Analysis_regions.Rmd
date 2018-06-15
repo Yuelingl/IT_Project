@@ -10,8 +10,8 @@ output:
 
 #### Read Data
 ```{r eval=TRUE, echo=TRUE}
-master.data <- read.csv("../data/master_data/master_data.csv")
-master.data
+dfData.Master <- read.csv("../data/master_data/master_data.csv")
+dfData.Master
 ```
 
 ### Select relevant columns for regional analysis
@@ -20,10 +20,15 @@ master.data
 
 ```{r eval=TRUE, echo=TRUE}
 
-region.data <- select(master.data, -Country, Happiness.Score.Standard.Error)
-region.data 
+dfData.Master.Regions <- select(dfData.Master, -Country, Happiness.Score.Standard.Error)
+dfData.Master.Regions 
 
 ```
+
+
+#### Box-Plots {.tabset .tabset-fade}
+
+##### Happines Record
 
 -- How the Happiness Score is made up  
 
@@ -31,9 +36,9 @@ region.data
 
 theme_set(theme_classic())
 
-happ.box<- ggplot(region.data, aes(Region, Happiness.Score))
+pBox.Happiness<- ggplot(dfData.Master.Regions, aes(Region, Happiness.Score))
 
-happ.box + geom_boxplot(varwidth = T,   fill="plum") +
+pBox.Happiness + geom_boxplot(varwidth = T,   fill="plum") +
   theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
   labs(title="Happiness across Regions",
        x="Region",
@@ -41,13 +46,15 @@ happ.box + geom_boxplot(varwidth = T,   fill="plum") +
 
 ```
 
+##### Alcohol Consumption
+
 ```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
-happ.box<- ggplot(region.data, aes(Region, Alcohol.Consumption.All.Types))
+pBox.Alcohol<- ggplot(dfData.Master.Regions, aes(Region, Alcohol.Consumption.All.Types))
 
-happ.box + geom_boxplot(varwidth = T,   fill="goldenrod2") +
+pBox.Alcohol + geom_boxplot(varwidth = T,   fill="goldenrod2") +
   theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
   labs(title="Alcohol Consumption across Regions",
        x="Region",
@@ -55,36 +62,43 @@ happ.box + geom_boxplot(varwidth = T,   fill="goldenrod2") +
 
 ```
 
+##### PISA-Study
+
 ```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
 
-happ.box<- ggplot(region.data, aes(Region, PISA.Performance.Mean))
+pBox.PISA<- ggplot(dfData.Master.Regions, aes(Region, PISA.Performance.Mean))
 
-happ.box + geom_boxplot(varwidth = T,   fill="aquamarine4") +
+pBox.PISA + geom_boxplot(varwidth = T,   fill="aquamarine4") +
   theme(axis.text.x = element_text(angle=60, vjust = 0.6, size = 7.5))+
   labs(title="PISA Performance across Regions",
        x="Region",
        y="PISA Performance")
-
 ```
 
+#### Regional Tops {.tabset .tabset-fade}
+
+
+##### Happiness Record
+
 Preparing the dataset for binning
+
 ```{r eval=TRUE, echo=TRUE}
-help.happiness.data<- select(master.data, Region,Happiness.Score, 5:10)
-help.happiness.data<-help.happiness.data%>%
+dfData.Master.Happiness<- select(dfData.Master, Region,Happiness.Score, 5:10)
+dfData.Master.Happiness<-dfData.Master.Happiness%>%
   group_by(Region)%>%
   summarise_all(funs(mean))
 
-help.happiness.data
+dfData.Master.Happiness
 
 ```
 
 ```{r eval=TRUE, echo=TRUE}
 
-binnable.happiness.data <- gather(help.happiness.data, Happiness.Reasons, Amount, 3:8 )
-binnable.happiness.data<- select(binnable.happiness.data, Region,Happiness.Reasons, Amount)
-binnable.happiness.data
+dfData.bin.Happiness <- gather(dfData.Master.Happiness, Happiness.Reasons, Amount, 3:8 )
+dfData.bin.Happiness <- select(dfData.bin.Happiness, Region,Happiness.Reasons, Amount)
+dfData.bin.Happiness
 
 ```
 
@@ -92,9 +106,9 @@ binnable.happiness.data
 
 theme_set(theme_classic())
 
-happ.histo<- ggplot(binnable.happiness.data, aes(Region, Amount))
+pHappiness.Dodge <- ggplot(dfData.bin.Happiness, aes(Region, Amount))
 
-happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "dodge", stat="identity", color="black")+
+pHappiness.Dodge + geom_bar(aes(fill=Happiness.Reasons), position = "dodge", stat="identity", color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="Spectral")+
   labs(title="What's most important for Happiness across Regions",
@@ -105,36 +119,38 @@ happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "dodge", stat="ide
 ```
 
 ```{r eval=TRUE, echo=TRUE}
+
 theme_set(theme_classic())
 
-happ.histo<- ggplot(binnable.happiness.data, aes(Region, Amount))
+pHappiness.Stack <- ggplot(dfData.bin.Happiness, aes(Region, Amount))
 
-happ.histo + geom_bar(aes(fill=Happiness.Reasons), position = "stack", stat="identity",color="black")+
+pHappiness.Stack + geom_bar(aes(fill=Happiness.Reasons), position = "stack", stat="identity",color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="Spectral")+
   labs(title="What's most important for Happiness across Regions",
        x="Region",
        y="Happiness Score")
 
-
 ```
 
-```{r eval=TRUE, echo=TRUE}
-help.alcohol.data<- select(master.data, Region, 16:20)
+##### Alcohol Consumption
 
-help.alcohol.data<-help.alcohol.data%>%
+```{r eval=TRUE, echo=TRUE}
+dfData.Master.Alcohol<- select(dfData.Master, Region, 16:20)
+
+dfData.Master.Alcohol<-dfData.Master.Alcohol%>%
   group_by(Region)%>%
   summarise_all(funs(mean(.,na.rm = TRUE)))
 
-help.alcohol.data
+dfData.Master.Alcohol
 
 ```
 
 ```{r eval=TRUE, echo=TRUE}
 
-binnable.alcohol.data <- gather(help.alcohol.data, Alcohol.Types, Amount, 3:6 )
-binnable.alcohol.data<- select(binnable.alcohol.data, Region,Alcohol.Types, Amount)
-binnable.alcohol.data
+dfData.bin.Alcohol <- gather(dfData.Master.Alcohol, Alcohol.Types, Amount, 3:6 )
+dfData.bin.Alcohol <- select(dfData.bin.Alcohol, Region,Alcohol.Types, Amount)
+dfData.bin.Alcohol
 
 ```
 
@@ -142,9 +158,9 @@ binnable.alcohol.data
 
 theme_set(theme_classic())
 
-happ.histo<- ggplot(binnable.alcohol.data, aes(Region, Amount))
+pAlcohol.Dodge <- ggplot(dfData.bin.Alcohol, aes(Region, Amount))
 
-happ.histo + geom_bar(aes(fill=Alcohol.Types), position ="dodge", stat="identity",color="black")+
+pAlcohol.Dodge + geom_bar(aes(fill=Alcohol.Types), position ="dodge", stat="identity",color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="YlOrBr")+
   labs(title="Which alcoholic drinks people drink most across regions",
@@ -158,43 +174,44 @@ happ.histo + geom_bar(aes(fill=Alcohol.Types), position ="dodge", stat="identity
 
 theme_set(theme_classic())
 
-happ.histo<- ggplot(binnable.alcohol.data, aes(Region, Amount))
+pAlcohol.Stack <- ggplot(dfData.bin.Alcohol, aes(Region, Amount))
 
-happ.histo + geom_bar(aes(fill=Alcohol.Types), position ="stack", stat="identity",color="black")+
+pAlcohol.Stack + geom_bar(aes(fill=Alcohol.Types), position ="stack", stat="identity",color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="YlOrBr")+
   labs(title="Which alcoholic drinks people drink most across regions",
        x="Region",
        y="Alcohol Consumption")
 
-
 ```
 
-```{r eval=TRUE, echo=TRUE}
-help.pisa.data<- select(master.data, Region, 12:15)
+##### PISA-Study
 
-help.pisa.data<-help.pisa.data%>%
+```{r eval=TRUE, echo=TRUE}
+dfData.Master.PISA<- select(dfData.Master, Region, 12:15)
+
+dfData.Master.PISA<-dfData.Master.PISA%>%
   group_by(Region)%>%
   summarise_all(funs(mean(.,na.rm = TRUE)))
 
-help.pisa.data
+dfData.Master.PISA
 
 ```
 
 ```{r eval=TRUE, echo=TRUE}
 
-binnable.pisa.data <- gather(help.pisa.data, PISA.Disciplines, Amount, 2:4 )
-binnable.pisa.data<- select(binnable.pisa.data, Region,PISA.Disciplines, Amount)
-binnable.pisa.data
+dfData.bin.PISA <- gather(dfData.Master.PISA, PISA.Disciplines, Amount, 2:4 )
+dfData.bin.PISA<- select(dfData.bin.PISA, Region,PISA.Disciplines, Amount)
+dfData.bin.PISA
 
 ```
 
 ```{r eval=TRUE, echo=TRUE}
 theme_set(theme_classic())
 
-pisa.histo<- ggplot(binnable.pisa.data, aes(Region, Amount))
+pPISA.Dodge<- ggplot(dfData.bin.PISA, aes(Region, Amount))
 
-pisa.histo + geom_bar(aes(fill=PISA.Disciplines), position = "dodge", stat="identity",color="black")+
+pPISA.Dodge + geom_bar(aes(fill=PISA.Disciplines), position = "dodge", stat="identity",color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="Set1")+
   labs(title="What students are best at across regions",
@@ -208,9 +225,9 @@ pisa.histo + geom_bar(aes(fill=PISA.Disciplines), position = "dodge", stat="iden
 
 theme_set(theme_classic())
 
-pisa.histo<- ggplot(binnable.pisa.data, aes(Region, Amount))
+pPISA.Stack<- ggplot(dfData.bin.PISA, aes(Region, Amount))
 
-pisa.histo + geom_bar(aes(fill=PISA.Disciplines), position = "stack", stat="identity",color="black")+
+pPISA.Stack + geom_bar(aes(fill=PISA.Disciplines), position = "stack", stat="identity",color="black")+
   theme(axis.text.x = element_text(angle=70, vjust = 0.6, size = 7.5))+
   scale_fill_brewer(palette="Set1")+
   labs(title="What students are best at across regions",
