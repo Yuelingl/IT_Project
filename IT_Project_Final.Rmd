@@ -48,7 +48,7 @@ library(maps)
 
 # Clean Data {.tabset .tabset-fade}
 
-The Goal of this file is to clean the data of each dataset, in order to compare them with the other datasets.
+The Goal of this section is to clean the data of each dataset, in order to compare them with the other datasets.
 
 ```{r child = 'cleaning/clean_pisa_data.rmd'}
 ```
