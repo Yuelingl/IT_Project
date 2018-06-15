@@ -41,7 +41,7 @@ dfData.Master
 
 ### Correlation Analysis
 
--- Select relevant columns for correlation
+-- Select relevant columns for correlation  
 
 Since we are looking only at numeric variables during the correlation analysis we will sort out the columns "Country" and "Region". The standard error of the Happiness Score will, too, be unnecessary for our following process.
 Since our used correlation plot package does not support label parameters yet, instead using column names by default, we will rename the column names. For, whereas precise column names are suitable in a dataset, they are too long as axis lables in the corrplot, making the plot distorted and convoluted. 
@@ -61,7 +61,7 @@ dfData.Master.Corr<-dfData.Master.Corr%>%
 
 ```
 
--- Perform Correlation
+-- Perform Correlation  
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -126,9 +126,9 @@ pPISA.Happiness
 
 High levels of significance point to positive relationships between our chosen variables:
 
--- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.
--- Alcohol consumption in general is a significant predictor variable for the average PISA performance.
--- The Happiness Score is a significant predictor for the average PISA performance.
+-- Different kinds of alcohol (Beer, Wine and Others especially) are significant predictor variables for the average PISA performance.  
+-- Alcohol consumption in general is a significant predictor variable for the average PISA performance.  
+-- The Happiness Score is a significant predictor for the average PISA performance.  
 
 However one has to consider the low levels of R-square in all of the aforementioned regressions. This means that, although the low P values indicate a real relationship between predictors and response variables, the precision of the prediction is not very high on all accounts.
 This can be led to the fact, that our data is very processed, on the one hand Happiness Score being a highly calculated variable and on the other having average scores for entire countries, rather than single oberservation variables. 

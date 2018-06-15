@@ -46,7 +46,7 @@ dfData.Happiness
 #### Merge Data
 
 -- Load own R-Functions for Multi-Merge  
--- Merge the three Data Sets
+-- Merge the three Data Sets  
 
 ```{r eval=TRUE, echo=TRUE}
 source("../r/functions.R")
@@ -57,7 +57,7 @@ dfData.Master
 
 #### Arrange Data
 
--- drop not often colums to minimze master data
+-- drop not often colums to minimze master data  
 
 ```{r eval=TRUE, echo=TRUE}
 drops <- c(
@@ -78,7 +78,7 @@ dfData.Master.min
 
 #### Save CSV-Files
 
--- Save CSV-Files
+-- Save CSV-Files  
 
 ```{r eval=TRUE, echo=TRUE}
 write.csv(dfData.Master, file = "master_data/master_data.csv",row.names=FALSE, na="", col.names = TRUE)

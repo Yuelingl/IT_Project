@@ -9,31 +9,16 @@ output:
 
 ### Introduction
 
-#### Goal
-
-The Goal of this File is to clean the Data of the PISA (Programm for International Student Assessment) study in order  
-to use it for comparing with the World Happiness Record and the GISAH Study.
-  
-The cleaned Data should contain the Scores for the different PISA Scales for the year 2015 in different columns.
-
 ### Setup
 
 #### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
 
 ```{r eval=FALSE, echo=TRUE}
 library(csvread)
 library(tidyr)
 ```
 
-
-#### Read PISA - CSV File
-
--- Read CSV File "pisa_data.csv"  
--- Gets PISA Data for cleaning
-
+#### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
 dfPISA.raw <- read.csv(file = "../data/raw_data/pisa_data.csv", header = TRUE, dec = ".", stringsAsFactors = FALSE)
@@ -46,8 +31,7 @@ dfPISA.raw
 
 -- Delete not needed rows  
 -- Rename colums  
--- Delete not needed colums  
-  -- Columns with scores for the years 2013 and 2015 are not needed  
+-- Delete not needed colums (Columns with scores for the years 2013 and 2015 are not needed)
 
 ```{r eval=TRUE, echo=TRUE}
 tail(dfPISA.raw)

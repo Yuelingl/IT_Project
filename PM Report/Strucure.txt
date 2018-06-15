@@ -1,0 +1,15 @@
+Structure:
+-	Introduction
+o	Goal of the project
+o	Customers (readers)
+o	Costs of the project
+o	Time constraints
+
+-	Project Management with ‘Trello’
+o	Member roles in the project
+
+o	Introduction and explanation of Trello
+o	Our Lists and Labels
+o	How we handled Cards/Tasks
+o	Deadline management 
+o	Risk & Quality Assurance: Validation/Verification through code review meetings
