@@ -10,7 +10,7 @@ output:
 
 #### Read Data
 ```{r eval=TRUE, echo=TRUE}
-dfData.Master <- read.csv("../data/master_data/master_data.csv")
+dfData.Master <- read.csv("../../../data/master_data/master_data.csv")
 dfData.Master
 ```
 

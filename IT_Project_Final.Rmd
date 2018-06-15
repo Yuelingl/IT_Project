@@ -69,20 +69,20 @@ The Goal of this file is to clean the data of each dataset, in order to compare 
 
 ## Maps
 
-```{r child = 'descriptive/maps/maps.rmd'}
+```{r child = 'analysis/descriptive/maps/maps.rmd'}
 ```
 
 ## Regions
 
-```{r child = 'data/Descriptive_Analysis_regions.rmd'}
+```{r child = 'analysis/descriptive/regions/Descriptive_Analysis_regions.rmd'}
 ```
 
 ## Top/Bottom Ten Countries
 
-```{r child = 'descriptive/top_ten/top_ten.Rmd'}
+```{r child = 'analysis/descriptive/top_ten/top_ten.Rmd'}
 ```
 
 # Analysis
 
-```{r child = 'data/Regression_Analysis.rmd'}
+```{r child = 'analysis/regression/Regression_Analysis.rmd'}
 ```

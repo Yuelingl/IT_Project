@@ -14,7 +14,7 @@ output:
 -- Read CSV File "pisa_data.csv"  
 
 ```{r eval=TRUE, echo=TRUE}
-dfData.master <- read.csv("../../data/master_data/master_data.min.csv")
+dfData.master <- read.csv("../../../data/master_data/master_data.min.csv")
 ```
 
 ### Top Ten Countries in different Studies 2015 {.tabset .tabset-fade}

@@ -5,7 +5,7 @@ output:
     df_print: paged
     keep_md: yes
 ---
-rmarkdown::render('../IT_Project/data/Regression_Analysis.Rmd', output_format = 'html_document')
+rmarkdown::render('analysis/regression/Regression_Analysis.Rmd', output_format = 'html_document')
 
 
 ## Correlation and Regression Analysis
@@ -19,7 +19,7 @@ Now we want to find out how our chosen datasets correlate with each other and, i
 This will be the data we will work with in the following analysis.
 ```{r eval=TRUE, echo=FALSE}
 
-dfData.Master <- read.csv("../data/master_data/master_data.csv")
+dfData.Master <- read.csv("../../data/master_data/master_data.csv")
 dfData.Master
 ```
 

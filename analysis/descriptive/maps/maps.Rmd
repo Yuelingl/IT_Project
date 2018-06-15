@@ -14,9 +14,9 @@ output:
 -- Load CSVf- files
 
 ```{r eval=TRUE, echo=TRUE}
-dfData.PISA <- read.csv("../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)
-dfData.Alcohol <- read.csv("../../data/clean_data/alcohol_data.csv", stringsAsFactors = FALSE)
-dfData.Happiness <- read.csv("../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
+dfData.PISA <- read.csv("../../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)
+dfData.Alcohol <- read.csv("../../../data/clean_data/alcohol_data.csv", stringsAsFactors = FALSE)
+dfData.Happiness <- read.csv("../../../data/clean_data/happiness_data.csv", stringsAsFactors = FALSE)
 ```
 
 ### Adapt Data
@@ -168,5 +168,3 @@ p <- p + ggplot2::theme_bw()
 p <- p + ggplot2::theme(panel.border = ggplot2::element_blank())
 p
 ```
-
-###
