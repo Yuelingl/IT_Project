@@ -20,7 +20,7 @@ dfData.master <- read.csv("../../data/master_data/master_data.min.csv")
 
 ### Top Ten Countries in different Studies 2015 {.tabset .tabset-fade}
 
--- This Top-Ten-Lists contain the countries which participated in all 3 studies (Happiness Record, PISA-Study, Alcohol Consumption Study)
+-- This Top-Ten-Lists contain the countries which participated in all 3 studies (Happiness Record, PISA-Study, Alcohol Consumption Study)  
 
 #### Happiness Score
 

@@ -7,17 +7,18 @@ output:
 ---
 ## Clean Happiness Record
 
-### Goal
-
-The Goal of this File is to clean the Data of the World Happiness Report 2015 in order to use it for comparing with the PISA Study and the GISAH Study of 2015
-  
-The cleaned Data should contain the Happiness Score, Standard Error and the extend to which the different factors (Family, Health, ...) influenced the Happiness Score of the certain countries.
-
 ### Setup
 
-#### Read raw data
+<<<<<<< HEAD
+=======
+#### Load Librarys
 
--- Read CSV File "world_happiness_report_2015.csv"  
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+```
+
+>>>>>>> Commenting
+#### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
 dfHappiness.raw <- read.csv(file = "../data/raw_data/world_happiness_report_2015.csv", header = TRUE)
@@ -26,7 +27,7 @@ dfHappiness.raw
 
 ### Clean Data
 
--- Delete Column, as it will be incorrect, when later deleting countries
+-- Delete the rank column, as it will be incorrect when later merging all studies, because some countries will be dropped.
 
 ```{r eval=TRUE, echo=TRUE}
 dfHappiness.raw[3] <- NULL
@@ -46,7 +47,7 @@ names(dfHappiness.raw)[10]<- "Generosity"
 names(dfHappiness.raw)[11]<- "Dystopia.Residual"
 ```
 
--- rename Countries  
+-- rename Countries
 
 ```{r eval=TRUE, echo=TRUE}
 

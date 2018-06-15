@@ -7,19 +7,23 @@ output:
 ---
 ## Clean GISAH Study
 
-### Goal
-
-tba
-
 ### Setup
 
+<<<<<<< HEAD
+=======
+#### Load Libraries
+
+```{r eval=FALSE, echo=TRUE}
+library(csvread)
+library(tidyr)
+```
+
+>>>>>>> Commenting
 #### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
 dfAlcohol.raw <- read.csv(file ="../data/raw_data/alcohol_consumption.csv", header = TRUE)
 dfAlcohol.raw
-
-
 ```
 Characterisics of raw data  
 number of columns:  
@@ -33,7 +37,7 @@ number of rows:
 nrow(dfAlcohol.raw)
 ```
 
-### Clean raw data
+### Clean data
 -- Renaming columns  
 -- Omit superfluous columns: X1: "Datasource", Years 2016 & 2010-2014
 
@@ -62,7 +66,7 @@ dfAlcohol.2015<- dfAlcohol.2015[-c(1), ]
 dfAlcohol.2015
 
 dfAlcohol.2015 <- dfAlcohol.2015[-c(580:587),]
-dfAlcohol.clean <- tidyr::spread(dfAlcohol.2015, Beverage_Types, Alcohol_per_capita_2015, )
+dfAlcohol.clean <- tidyr::spread(dfAlcohol.2015, Beverage_Types, Alcohol_per_capita_2015)
 dfAlcohol.clean
 
 ```

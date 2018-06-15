@@ -9,10 +9,23 @@ output:
 
 ### Setup
 
+<<<<<<< HEAD
+=======
+#### Load Libraries
+
+-- Load Librarys  
+
+```{r eval=FALSE, echo=TRUE}
+library(dplyr)
+library(ggplot2)
+library(maps)
+library(csvread)
+```
+>>>>>>> Commenting
 
 #### Load CSV
 
--- Load CSV
+-- Load CSV  
 
 ```{r eval=TRUE, echo=TRUE}
 dfData.PISA <- read.csv("../../data/clean_data/pisa_data.csv", stringsAsFactors = FALSE)
@@ -89,7 +102,7 @@ dfData.PISA
 #### World´s Alcohol consumption
 
 -- Displays the World´s Alcohol Consumption in pure litres of Alcohol  
--- White countries have not participated in the study
+-- White countries have not participated in the study  
 
 ```{r eval=TRUE, echo=TRUE}
 df <- data.frame(region=dfData.Alcohol$region, 
@@ -117,7 +130,7 @@ p
 #### World´s Happiness Record
 
 -- Displays the World´s Happiness record  
--- White countries have not participated in the study
+-- White countries have not participated in the study  
 
 ```{r eval=TRUE, echo=TRUE}
 df <- data.frame(region=dfData.Happiness$region, 
@@ -145,7 +158,7 @@ p
 #### PISA-Study Map
 
 -- Displays Mean Performance of the PISA-Study  
--- White countries have not participated in the study
+-- White countries have not participated in the study  
 
 ```{r eval=TRUE, echo=TRUE}
 df <- data.frame(region=dfData.PISA$region, 
