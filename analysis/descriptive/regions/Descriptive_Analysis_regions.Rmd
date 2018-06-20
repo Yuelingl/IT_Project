@@ -30,8 +30,6 @@ dfData.Master.Regions
 
 ##### Happines Record
 
--- How the Happiness Score is made up  
-
 ```{r eval=TRUE, echo=TRUE}
 
 theme_set(theme_classic())
@@ -45,6 +43,14 @@ pBox.Happiness + geom_boxplot(varwidth = T,   fill="plum") +
        y="Happiness Score")
 
 ```
+
+We can see that people in North America are amongst the happiest, without huge
+deviation. That is explained by the fact, that only the USA and Canada accord to North America.
+Western Eruope 
+Followed by Western Europe, with a bigger deviation, especially some in the lowest 25%, overall deviating
+for over two score points.
+Middle East and Northern Africa and Central and Eastern Europe also have stronger deviation of over two score points in general,
+central and Eastern Europe having the unhappiest country.
 
 ##### Alcohol Consumption
 
@@ -62,6 +68,11 @@ pBox.Alcohol + geom_boxplot(varwidth = T,   fill="goldenrod2") +
 
 ```
 
+We can see Central and Eastern Europe having the highest deviation of over 10 litres per person and the highest alcohol consuming
+countries. Australia and New Zealand, North America and Western Europe have smiliar mean values, with Western Europe having a span of about 5 litres.
+In the Middle East, Northern Africa and Southern Asia people tend to drink only little amounts of alcohol. Eastern Asia, Latin America and Caribbean beeing
+in the middle of all that.
+
 ##### PISA-Study
 
 ```{r eval=TRUE, echo=TRUE}
@@ -76,6 +87,9 @@ pBox.PISA + geom_boxplot(varwidth = T,   fill="aquamarine4") +
        x="Region",
        y="PISA Performance")
 ```
+
+We can see Eastern Asia, Australia and New Zealand, North America and Western Europe with the highest means, leaded by Eastern Asia. Following them we see Central
+and Eastern Europe and Southeastern Asia with comparable high spans of up to around 150 points. Lowest countries in this category are from latin America and Caribbean and Middle East and Northern Africa.
 
 #### Regional Tops {.tabset .tabset-fade}
 
