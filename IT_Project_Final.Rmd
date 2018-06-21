@@ -74,14 +74,11 @@ library(maps)
 
 # Merge Data
 
-<<<<<<< HEAD
 After reading the cleaned dataset of each study we merged the data by an own developed merge function.  
 The data was joined on the "Country"-column and includes data of PISA-Scores 2015, Happiness Record 2015 and its categories and the Acohol consumption of 2015 in pure litres of alcohol for each country that took part in all three studies. In addition to this, we made a minimized Master-Dataset as we do not always need all the data for each analysis.  
   
 The final Master-Dataset was saved in a new CSV-file containing  68 Countries with the data of 2015 for the PISA-Study, the GISAH-Study and the World Happiness Record.
 
-=======
->>>>>>> Commenting2
 ```{r child = 'data/Merge_Data.rmd'}
 ```
 
