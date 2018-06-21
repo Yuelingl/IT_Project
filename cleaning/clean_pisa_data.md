@@ -4,41 +4,16 @@ output:
   html_document:
     df_print: paged
     keep_md: yes
-    toc: yes
-    toc_float: yes
-    code_folding: hide
 ---
+## Clean PISA Study
 
-## Introduction
-
-### Goal
-
-The Goal of this File is to clean the Data of the PISA (Programm for International Student Assessment) study in order  
-to use it for comparing with the World Happiness Record and the GISAH Study.
-  
-The cleaned Data should contain the Scores for the different PISA Scales for the year 2015 in different columns.
-
-## Setup
+The Goal of this section is to clean the data of the PISA-Study Dataset in order to prepare it for the merging with the other datasets.  
+First we renamed
 
 
+### Setup
 
-### Load Librarys
-
--- Load Library for reading CSV Files.
--- Load tidyr-library
-
-
-```r
-library(csvread)
-library(tidyr)
-```
-
-
-### Read PISA - CSV File
-
--- Read CSV File "pisa_data.csv"  
--- Gets PISA Data for cleaning
-
+#### Read raw data
 
 
 ```r
@@ -52,14 +27,13 @@ dfPISA.raw
   </script>
 </div>
 
-## Clean Data
+### Clean Data
 
-### Delete unneccessary columns and rows
+#### Delete unneccessary columns and rows
 
 -- Delete not needed rows  
 -- Rename colums  
--- Delete not needed colums  
-  -- Columns with scores for the years 2013 and 2015 are not needed  
+-- Delete not needed colums (Columns with scores for the years 2013 and 2015 are not needed)
 
 
 ```r
@@ -118,7 +92,7 @@ head(dfPISA.raw)
   </script>
 </div>
 
-### Apart the different PISA-Categorys
+#### Apart the different PISA-Categorys
 
 -- Apart the Mean Performance of the different Scales 
 -- Delete the unneeded "Series.Code"-column  
@@ -143,7 +117,7 @@ dfPISA.clean
 dfPISA.raw <- NULL
 ```
 
-###Clean data
+#### Clean data
 
 -- Delete Male and Female Scales as they are not needed when comparing Data Sets for Aclohol Consuption, Happiness Record and PISA Study  
 -- Rename Scale Columns  
@@ -197,7 +171,7 @@ dfPISA.clean
   </script>
 </div>
 
-### Calculate PISA Mean Performance
+#### Calculate PISA Mean Performance
 
 -- Convert Scale-Performance to numeric type  
 -- Calculate PISA Mean Performance for every row  
@@ -219,7 +193,7 @@ dfPISA.clean
   </script>
 </div>
 
-### Save Data in CSV-File
+#### Save Data in CSV-File
 
 -- Write the clean PISA-Data to a CSV-File
 

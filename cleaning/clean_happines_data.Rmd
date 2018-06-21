@@ -7,6 +7,14 @@ output:
 ---
 ## Clean Happiness Record
 
+The Goal of this section is to clean the data of the Happiness Record 2015 in order to prepare it for the merging with the other datasets.  
+  
+Like for the other datasets we renamed the columns in order to access them later easier. Because the Happiness Score is made of different categories (which are already in wide form), we chosed to not delete any column as all the data may be useful in the following analysis.  
+  
+As well as in the other studies again there are some study are countries which are named differend and so we again had to do an anti_join and rename the specific countries. This had to be done because the datasets will be joined on the "Country"-column and so the countries have to be standardized.  
+  
+Finally the data was saved in a new CSV-file.
+
 ### Setup
 
 #### Read raw data

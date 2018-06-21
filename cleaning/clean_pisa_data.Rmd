@@ -5,7 +5,17 @@ output:
     df_print: paged
     keep_md: yes
 ---
-## Clean PISA Study
+## Clean PISA Study  
+
+The Goal of this section is to clean the data of the PISA-Study Dataset in order to prepare it for the merging with the other datasets.  
+  
+First we renamed the Columns "ï..Country.Name", "X2013..YR2013.", "X2014..YR2014." and "X2015..YR2015." to "Country", "Score.2013", "Score.2014" and "Score.2015" so we can access them later easier. After that the column "Country.Code" is removed, because we do not need it as the datasets will be joined on the "Country" column. Because the PISA-Study is done every third year, there are no values in the columns for the Score in 2013 and 2014, which is why we removed them as well.  
+  
+An obstacle is that the different categories (Mathematics, Reading and Science) of the study are in one column, so we had to convert the dataframe from long form to wide form in order to apart them. The Score 2015 was saved in the corresponding column for each category and we only kept the columns for the general Mean Score as the other datasets do not include a separation into female and male participants. Countries who did not take part in the study were removed from the dataset.  
+  
+As we found out later when merging the datasets, there are countries which are named differend in each study. So we did an anti_join over these datasets and renamed the specific countries to make them standardized.  
+  
+Finally the general Mean Performance Score was added by calculating the mean of the categories and the clean data was saved in a new CSV-file.
 
 ### Setup
 

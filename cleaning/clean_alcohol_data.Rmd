@@ -5,9 +5,18 @@ output:
     df_print: paged
     keep_md: yes
 ---
-## Clean GISAH Study (Alcohol Consumption)
+## Clean GISAH Study (Alcohol Consumption)  
+
+The Goal of this section is to clean the data of the Global Information System on Alcohol and Health (GISAH) Dataset in order to prepare it for the merging with the other datasets.  
+  
+After reading the data from the CSV-File, we renamed the columns in order to access them later easier. Then we removed the columns for years 2010-2014 and 2016 as we only need the Aclohol values of year 2015, because the dataset of the PISA-Study also only contains the Scores of 2015 and we want to join them later so we can analyze the data. The first row of the dataframe was removed as well as it only contains the names of the corresponding columns.  
+  
+Like the categories in the PISA-Studythe the different beverage types are in one column, so we had to convert the dataframe from long form to wide form in order to apart them. The Alcohol consumption per capita in pure litres for the year 2015 was saved in the corresponding column for each beverage type. In this study are countries which are named differend in the other studies and so we again had to do an anti_join and rename the specific countries to make them standardized.  
+  
+Last thing we did here was to clear out the "NA"-Values and then the clean data was saved in a new CSV-file.
 
 ### Setup
+
 #### Read raw data
 
 ```{r eval=TRUE, echo=TRUE}
