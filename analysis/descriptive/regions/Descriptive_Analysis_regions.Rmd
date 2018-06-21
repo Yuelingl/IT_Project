@@ -250,5 +250,3 @@ pPISA.Stack + geom_bar(aes(fill=PISA.Disciplines), position = "stack", stat="ide
 
 
 ```
-
-### 

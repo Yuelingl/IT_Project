@@ -7,6 +7,8 @@ output:
     code_folding: hide
 ---
 
+-- Note that all code is hidden by default. Click on the "code"-button in the different sections to make it visible.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.height = 7, fig.width = 10)
