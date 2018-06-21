@@ -1,5 +1,6 @@
 ---
 title: "Happiness, PISA & Alcohol"
+author: "Cornelius Schäfer, Leon Klimpel, Yueling Li"
 output:
   html_document:
     df_print: paged
