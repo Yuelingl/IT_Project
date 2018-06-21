@@ -5,7 +5,6 @@ output:
     df_print: paged
     keep_md: yes
 ---
-rmarkdown::render('analysis/regression/Regression_Analysis.Rmd', output_format = 'html_document')
 
 
 ## Correlation and Regression Analysis
